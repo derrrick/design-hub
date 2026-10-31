@@ -1,8 +1,8 @@
 # Design hub
 
-A quiet one-page reading site for Derrick Schippert. The home page is Bio, Work, Thoughts, then Resources. Section names sit in a left label column. A dated note lives at `/thoughts/[date]`, and a day’s reading at `/resources/[date]`, each with a back link home.
+A quiet one-page reading site for Derrick Schippert. The home page is the intro, Work, then short lists for Thoughts, Resources, and the day’s reading. Each list shows a batch and a More button for the next batch. Section names sit in a left label column. A dated note lives at `/thoughts/[date]`, and a day’s reading at `/resources/[date]`, each with a back link home.
 
-Thoughts is three paragraphs. Earlier notes are listed under Previous, five dates at a time. A new note is published at 3:00am Pacific from the previous day’s X file and a web search. Resources is the shelf, grouped by category, then the latest morning file and earlier days under the same Previous pattern.
+Thoughts on the home page are date plus the first line, linking to the full note. A new note is published at 3:00am Pacific from the previous day’s X file and a web search. Resources are single-line links, featured first, with a quiet search. The day’s posts are the same kind of list.
 
 `/feed.xml` is still the RSS feed. It is not linked from the page. `/work`, `/resources`, `/today`, and `/archive` redirect to the matching section on the home page.
 

@@ -1,26 +1,38 @@
 import Link from "next/link";
 
 import { AboutIntro } from "@/components/about-intro";
-import { DesignThought } from "@/components/design-thought";
-import { FeedList } from "@/components/feed-list";
-import { PreviousList } from "@/components/previous-list";
-import { ResourceBrowser } from "@/components/resource-browser";
+import { DayLinks, PostLinks, ResourceLinks, ThoughtLinks } from "@/components/home-lists";
 import { WorkList } from "@/components/work-list";
-import { formatDayYear, formatThoughtDate } from "@/lib/format";
+import { formatThoughtDate } from "@/lib/format";
 import { getCategories, getEarlierDays, getLatestReading, getResources } from "@/lib/hub";
 import { site } from "@/lib/site";
-import { getLatestThought, listThoughts } from "@/lib/thoughts";
+import { listThoughts, type Thought } from "@/lib/thoughts";
 import { professional, sideProjects } from "@/lib/work";
 
 export const revalidate = 3600;
 
+function oneLine(text: string, max: number): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  const trimmed = (lastSpace > 40 ? cut.slice(0, lastSpace) : cut).trimEnd();
+  return `${trimmed.replace(/[.,;:]+$/, "")}…`;
+}
+
+function firstLine(thought: Thought): string {
+  const text = thought.paragraphs[0]?.map((span) => span.text).join("") ?? "";
+  const sentence = text.match(/^[\s\S]*?[.!?](?=\s|$)/)?.[0] ?? text;
+  return oneLine(sentence, 96);
+}
+
 export default async function HomePage() {
-  const thought = getLatestThought();
-  const earlierNotes = thought
-    ? listThoughts()
-        .filter((item) => item.date < thought.date)
-        .map((item) => ({ href: `/thoughts/${item.date}`, label: formatThoughtDate(item.date) }))
-    : [];
+  const notes = listThoughts().map((thought) => ({
+    href: `/thoughts/${thought.date}`,
+    date: thought.date,
+    label: formatThoughtDate(thought.date),
+    line: firstLine(thought),
+  }));
 
   const [categories, resources, reading, earlierDays] = await Promise.all([
     getCategories(),
@@ -29,18 +41,42 @@ export default async function HomePage() {
     getEarlierDays(),
   ]);
 
+  const names = new Map(categories.map((category) => [category.slug, category.name]));
+  const shelf = [...resources.filter((item) => item.featured), ...resources.filter((item) => !item.featured)]
+    .filter((item) => item.url)
+    .map((item) => {
+      const category = names.get(item.categorySlug) ?? "";
+      const meta = [category, item.authorHandle].filter(Boolean).join(" · ");
+      return {
+        href: item.url,
+        title: item.title,
+        meta,
+        haystack: [item.title, meta, item.note, item.tags.join(" ")].join(" ").toLowerCase(),
+      };
+    });
+
+  const posts = reading.posts.map((post) => ({
+    href: post.postUrl,
+    title: post.authorName,
+    meta: oneLine(post.excerpt || post.note || "", 72),
+  }));
+
+  const days = earlierDays.map((day) => ({
+    href: `/resources/${day.date}`,
+    date: day.date,
+    label: formatThoughtDate(day.date),
+    line: `${day.count} ${day.count === 1 ? "post" : "posts"}`,
+  }));
+
   return (
     <>
-      <section className="band" id="bio">
-        <p className="label">Bio</p>
-        <div className="slot">
-          <h1>
-            <Link className="name" href="/">
-              {site.name}
-            </Link>
-          </h1>
-          <AboutIntro />
-        </div>
+      <section className="hero">
+        <h1>
+          <Link className="name" href="/">
+            {site.name}
+          </Link>
+        </h1>
+        <AboutIntro />
       </section>
 
       <section className="band" id="work">
@@ -52,51 +88,44 @@ export default async function HomePage() {
 
       <section className="band" id="thoughts">
         <h2 className="label">Thoughts</h2>
-        {thought ? (
-          <>
-            <div className="slot" />
-            <Link href={`/thoughts/${thought.date}`} className="label date-link follows">
-              <time dateTime={thought.date}>{formatThoughtDate(thought.date)}</time>
-            </Link>
-            <div className="slot follows">
-              <DesignThought thought={thought} />
-            </div>
-            <PreviousList id="thoughts-previous" items={earlierNotes} />
-          </>
-        ) : (
-          <p className="slot empty">Nothing published yet. The note lands at 3am PT.</p>
-        )}
+        <div className="slot">
+          <ThoughtLinks notes={notes} />
+        </div>
       </section>
 
       <section className="band" id="resources">
         <h2 className="label">Resources</h2>
-        <ResourceBrowser categories={categories} resources={resources} />
-        {reading.date ? (
-          <>
-            <Link href={`/resources/${reading.date}`} className="label date-link subsection">
+        <div className="slot">
+          <ResourceLinks items={shelf} />
+        </div>
+      </section>
+
+      {reading.date ? (
+        <section className="band" id="reading">
+          <h2 className="label">
+            <Link href={`/resources/${reading.date}`} className="date-link">
               <time dateTime={reading.date}>{formatThoughtDate(reading.date)}</time>
             </Link>
-            <div className="slot subsection">
-              {!reading.isToday ? (
-                <p className="empty">Nothing new yet today. Showing the latest reading.</p>
-              ) : null}
-              <FeedList posts={reading.posts} label={`Posts for ${formatDayYear(reading.date)}`} />
-            </div>
-            <PreviousList
-              id="reading-previous"
-              items={earlierDays.map((day) => ({
-                href: `/resources/${day.date}`,
-                label: formatThoughtDate(day.date),
-              }))}
-            />
-          </>
-        ) : (
-          <>
-            <span className="label subsection" />
-            <p className="slot empty subsection">Nothing filed yet. The morning reading lands around 6am PT.</p>
-          </>
-        )}
-      </section>
+          </h2>
+          <div className="slot">
+            {!reading.isToday ? (
+              <p className="empty lead-in">Nothing new yet today. Showing the latest reading.</p>
+            ) : null}
+            <PostLinks posts={posts} />
+            {days.length > 0 ? (
+              <div className="earlier">
+                <h3 className="label inline-label">Earlier</h3>
+                <DayLinks days={days} />
+              </div>
+            ) : null}
+          </div>
+        </section>
+      ) : (
+        <section className="band" id="reading">
+          <h2 className="label">Reading</h2>
+          <p className="slot empty">Nothing filed yet. The morning reading lands around 6am PT.</p>
+        </section>
+      )}
     </>
   );
 }

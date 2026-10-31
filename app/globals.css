@@ -227,6 +227,15 @@ h1 {
   color: var(--muted);
 }
 
+.hero {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.hero + .band {
+  margin-top: var(--space-8);
+}
+
 .lede {
   margin-top: var(--space-5);
 }
@@ -267,8 +276,7 @@ h1 {
   color: var(--muted);
 }
 
-.date-link,
-.more-btn {
+.date-link {
   color: var(--ink);
   font-family: var(--font-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
   font-size: var(--size-label);
@@ -277,9 +285,73 @@ h1 {
 }
 
 .more-btn {
+  align-items: center;
   background: none;
   border: 0;
+  color: var(--ink);
   cursor: pointer;
+  font-family: inherit;
+  font-size: var(--size-body);
+  line-height: var(--lh);
+}
+
+.stack .more-btn {
+  margin-top: var(--space-2);
+}
+
+.slot .tools {
+  margin-bottom: var(--space-4);
+}
+
+.lines > li + li {
+  margin-top: var(--space-1);
+}
+
+.line-row {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-3);
+  align-items: baseline;
+  min-height: 32px;
+  padding-block: var(--space-1);
+  text-decoration: none;
+  color: inherit;
+  border-radius: 4px;
+}
+
+.when {
+  flex: 0 0 88px;
+  color: var(--muted);
+}
+
+.line-text,
+.line-title {
+  text-decoration: underline;
+  text-decoration-color: var(--underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.line-title {
+  font-weight: var(--weight-medium);
+}
+
+.line-meta {
+  color: var(--muted);
+  min-width: 0;
+}
+
+.lead-in {
+  margin-bottom: var(--space-3);
+}
+
+.earlier {
+  margin-top: var(--space-6);
+}
+
+.inline-label {
+  display: block;
+  margin-bottom: var(--space-2);
 }
 
 .prose p + p {
@@ -434,6 +506,7 @@ h1 {
   .date-link:hover,
   .more-btn:hover,
   .hit:hover,
+  .line-row:hover,
   .clear:hover,
   .retry:hover {
     background: var(--hover);
@@ -447,6 +520,8 @@ h1 {
 
   .text-link:hover,
   .hit:hover .work-title,
+  .line-row:hover .line-text,
+  .line-row:hover .line-title,
   .more-btn:hover,
   .retry:hover {
     text-decoration-color: currentColor;
@@ -458,6 +533,7 @@ h1 {
 .date-link:active,
 .more-btn:active,
 .hit:active,
+.line-row:active,
 .clear:active,
 .retry:active,
 .text-link:active {
