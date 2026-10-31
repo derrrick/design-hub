@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { AboutIntro } from "@/components/about-intro";
@@ -71,6 +72,17 @@ export default async function HomePage() {
   return (
     <>
       <section className="hero">
+        <div className="avatar">
+          <Image
+            src="/derrick.webp"
+            alt="Derrick Schippert"
+            width={48}
+            height={48}
+            sizes="48px"
+            quality={90}
+            priority
+          />
+        </div>
         <h1>
           <Link className="name" href="/">
             {site.name}

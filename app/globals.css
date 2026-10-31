@@ -17,12 +17,14 @@
   --pressed: #e5e5e5;
   --underline: #d9d9d9;
   --line: #e4e4e2;
+  --avatar-border: #e5e5e5;
   --focus: #111;
   --label: 92px;
   --gutter: 24px;
   --measure: 388px;
   --grid: calc(var(--label) + var(--gutter) + var(--measure));
   --stack: 620px;
+  --avatar: 48px;
   --size-body: 13px;
   --size-label: 11px;
   --lh: 20px;
@@ -49,6 +51,7 @@
     --pressed: #343432;
     --underline: #3f3f3c;
     --line: #2e2e2c;
+    --avatar-border: #3f3f3c;
     --focus: #f2f2ef;
   }
 }
@@ -151,6 +154,7 @@ button {
 }
 
 .column {
+  position: relative;
   width: min(var(--grid), calc(100% - 48px));
   margin-inline: auto;
   padding-block: var(--space-9);
@@ -232,6 +236,22 @@ h1 {
 .hero {
   grid-column: 1 / -1;
   min-width: 0;
+}
+
+.avatar {
+  width: var(--avatar);
+  height: var(--avatar);
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--avatar-border);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero + .band {
@@ -545,6 +565,15 @@ h1 {
 input:-webkit-autofill {
   -webkit-text-fill-color: var(--ink);
   box-shadow: 0 0 0 1000px var(--bg) inset;
+}
+
+@media (min-width: 861px) {
+  .avatar {
+    position: absolute;
+    top: var(--space-9);
+    right: calc(100% + var(--space-4));
+    margin-bottom: 0;
+  }
 }
 
 @media (max-width: 860px) {
