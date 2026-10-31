@@ -2,11 +2,11 @@
 
 A quiet reading site for Derrick Schippert. Three things:
 
-- **Thoughts** (`/`) — Design thoughts. Three paragraphs, dated, opinionated. A new note is published at 3:00am Pacific from the previous day’s X file and a web search.
-- **Today** (`/today`) — that morning file itself. About 20 posts, inserted around 6am PT.
-- **Resources** — a shelf of links kept from X (`hub_resources`, grouped by `hub_categories`).
+- **Design thoughts** (`/`) — three paragraphs, dated. Earlier notes are listed under Previous, five dates at a time. A new note is published at 3:00am Pacific from the previous day’s X file and a web search.
+- **Resources** (`/resources`) — the latest morning file, earlier days under the same Previous pattern, and the shelf of links kept from X.
+- **Work** (`/work`) — Square, then the side projects from [dschippert.com](https://dschippert.com).
 
-Earlier days are an index at `/archive`, one page per date. `/feed.xml` is an RSS feed of recent posts.
+`/feed.xml` is still the RSS feed. It is not linked from the page. `/today` and `/archive` redirect into Resources.
 
 The app only reads those three tables. It never writes, and it does not touch anything else in the Supabase project. Pages revalidate every hour, so a morning insert shows up without a redeploy. On Vercel, a cron at 14:15 UTC (after the 6am PT insert, in both PDT and PST) calls `/api/cron` and revalidates the layout so the new file is not waiting on the hour.
 

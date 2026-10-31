@@ -45,19 +45,25 @@ function readThought(file: string): Thought | null {
   }
 }
 
-export function getLatestThought(now = new Date()): Thought | null {
+export function listThoughts(now = new Date()): Thought[] {
   const today = todayInPT(now);
   let files: string[] = [];
   try {
     files = readdirSync(thoughtDir()).filter((name) => name.endsWith(".json"));
   } catch {
-    return null;
+    return [];
   }
 
-  const thoughts = files
+  return files
     .map((name) => readThought(path.join(thoughtDir(), name)))
     .filter((thought): thought is Thought => thought !== null && thought.date <= today)
     .sort((a, b) => (a.date < b.date ? 1 : -1));
+}
 
-  return thoughts[0] ?? null;
+export function getLatestThought(now = new Date()): Thought | null {
+  return listThoughts(now)[0] ?? null;
+}
+
+export function getThought(date: string, now = new Date()): Thought | null {
+  return listThoughts(now).find((thought) => thought.date === date) ?? null;
 }

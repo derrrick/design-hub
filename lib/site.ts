@@ -1,9 +1,12 @@
 export const site = {
   name: "Derrick Schippert",
   role: "Staff product designer",
-  description:
-    "A short daily note on product design, a reading list, and a shelf of resources kept from X.",
+  description: "Design thoughts, a reading shelf, and selected work.",
   personalSite: "https://dschippert.com",
+  about: [
+    "Staff product designer at Square. Previously at Google, Salesforce, and UserTesting.",
+    "Specializes in complex enterprise systems and turning messy workflows into tools people actually want to use.",
+  ],
 } as const;
 
 export function hubUrl(): string {

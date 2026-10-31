@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 import { DesignThought } from "@/components/design-thought";
-import { getLatestThought } from "@/lib/thoughts";
+import { PreviousList } from "@/components/previous-list";
+import { formatThoughtDate } from "@/lib/format";
+import { getLatestThought, listThoughts } from "@/lib/thoughts";
 
 export const revalidate = 3600;
 
@@ -12,6 +14,11 @@ export const metadata: Metadata = {
 
 export default function ThoughtsPage() {
   const thought = getLatestThought();
+  const previous = thought
+    ? listThoughts()
+        .filter((item) => item.date < thought.date)
+        .map((item) => ({ href: `/thoughts/${item.date}`, label: formatThoughtDate(item.date) }))
+    : [];
 
   if (!thought) {
     return (
@@ -22,5 +29,10 @@ export default function ThoughtsPage() {
     );
   }
 
-  return <DesignThought thought={thought} />;
+  return (
+    <>
+      <DesignThought thought={thought} />
+      <PreviousList items={previous} />
+    </>
+  );
 }

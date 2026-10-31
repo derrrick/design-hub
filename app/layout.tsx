@@ -3,7 +3,6 @@ import { Geist_Mono, Inter } from "next/font/google";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { ExternalLink } from "@/components/external-link";
 import { SiteNav } from "@/components/site-nav";
 import { hubUrl, site } from "@/lib/site";
 
@@ -85,16 +84,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Link className="name" href="/">
               {site.name}
             </Link>
-            <p className="role">{site.role}</p>
+            {site.about.map((line) => (
+              <p key={line} className="about">
+                {line}
+              </p>
+            ))}
             <SiteNav />
           </header>
           <main id="content" tabIndex={-1}>
             {children}
           </main>
-          <footer className="footer">
-            <ExternalLink href={site.personalSite}>dschippert.com</ExternalLink>
-            <a href="/feed.xml">Feed</a>
-          </footer>
         </div>
       </body>
     </html>
