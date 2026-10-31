@@ -2,7 +2,7 @@ export const site = {
   name: "Derrick Schippert",
   role: "Staff product designer",
   description:
-    "An argument about where product design is heading, a daily reading list, and a shelf of resources kept from X.",
+    "A short daily note on product design, a reading list, and a shelf of resources kept from X.",
   personalSite: "https://dschippert.com",
 } as const;
 

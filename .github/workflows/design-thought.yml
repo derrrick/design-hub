@@ -1,0 +1,47 @@
+name: Design thought
+
+on:
+  schedule:
+    # 10:00 UTC is 3:00am during PDT. 11:00 UTC is 3:00am during PST.
+    # The script publishes only when the Pacific hour is 3, so one of these is a no-op.
+    - cron: "0 10 * * *"
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Publish even when it is not 3:00am Pacific
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  models: read
+
+concurrency:
+  group: design-thought
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Write the note
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force && '1' || '' }}
+        run: node scripts/publish-thought.mjs
+      - name: Commit the note
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/thoughts
+          if git diff --cached --quiet; then
+            echo "No new note."
+          else
+            git commit -m "Publish the design thought."
+            git push
+          fi

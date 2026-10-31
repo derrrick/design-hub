@@ -2,7 +2,7 @@
 
 A quiet reading site for Derrick Schippert. Three things:
 
-- **Heading** (`/`) — an editorial argument about where product design is heading. The prose is written by hand and dated. It does not regenerate. The ledger and the “Filed” list under it are counted from the latest morning in `hub_feed_posts`, so those move when a new day lands.
+- **Thoughts** (`/`) — Design thoughts. Three paragraphs, dated, opinionated. A new note is published at 3:00am Pacific from the previous day’s X file and a web search.
 - **Today** (`/today`) — that morning file itself. About 20 posts, inserted around 6am PT.
 - **Resources** — a shelf of links kept from X (`hub_resources`, grouped by `hub_categories`).
 
@@ -10,7 +10,9 @@ Earlier days are an index at `/archive`, one page per date. `/feed.xml` is an RS
 
 The app only reads those three tables. It never writes, and it does not touch anything else in the Supabase project. Pages revalidate every hour, so a morning insert shows up without a redeploy. On Vercel, a cron at 14:15 UTC (after the 6am PT insert, in both PDT and PST) calls `/api/cron` and revalidates the layout so the new file is not waiting on the hour.
 
-Plain Next.js App Router. No Vercel-only APIs. To hang this under a rebuilt [dschippert.com](https://dschippert.com) later, move `app/`, `components/`, `lib/`, and `app/globals.css` into that repo (or serve this app at a path with `basePath`).
+Design thoughts is written by `.github/workflows/design-thought.yml`. The schedule is 10:00 and 11:00 UTC, and `scripts/publish-thought.mjs` continues only when the clock in `America/Los_Angeles` says 3:00am, so the note stays at 3:00am through daylight saving. It reads the previous day’s `hub_feed_posts` (and that day’s bookmarks, when a handful were saved), searches recent writing via the Hacker News index and the feeds from Luke Wroblewski, Nielsen Norman Group, and Smashing Magazine, then asks GitHub Models for three paragraphs. Citations have to be URLs from that material. The workflow commits `content/thoughts/YYYY-MM-DD.json`. GitHub only runs the schedule from the default branch, and Actions has to be enabled. The built-in `GITHUB_TOKEN` is enough (`models: read` is set on the workflow). Set `THOUGHT_MODEL` in the workflow if you want a different model id. An existing file for that date is left alone.
+
+Plain Next.js App Router. To hang this under a rebuilt [dschippert.com](https://dschippert.com) later, move `app/`, `components/`, `lib/`, `content/thoughts/`, and `app/globals.css` into that repo (or serve this app at a path with `basePath`). The daily note is the GitHub Action above, not a Vercel-only API.
 
 ## Local
 
@@ -46,7 +48,7 @@ cp .env.example .env.local
 
 The morning job writes `hub_feed_posts` on its own. This site picks that up on the cron, or on the next hourly revalidation if the cron is not configured. The interval is the `revalidate = 3600` export on each route, and the same window on the Supabase fetch in `lib/supabase.ts`. Change both if you want the baseline tighter.
 
-Heading’s argument is edited in `components/heading-essay.tsx`. Update it when the reading changes. Do not wire it to a model that rewrites the page overnight. The ledger in `components/heading-ledger.tsx` is the part that should move by itself.
+The 3:00am note is separate from that cron. It lands as a commit, which is what publishes it. To run it by hand: Actions → Design thought → Run workflow, and check “Publish even when it is not 3:00am Pacific”. It will not overwrite a note that is already filed for that date.
 
 ## Scripts
 

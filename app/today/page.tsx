@@ -21,9 +21,9 @@ export default async function TodayPage() {
     <>
       <p className="intro">
         The morning file. About twenty posts, landed around 6am PT, on where the work seems to be
-        heading. The page refreshes every hour, and again after that run. The argument is on{" "}
+        heading. The page refreshes every hour, and again after that run. The note is{" "}
         <Link href="/" className="text-link">
-          Heading
+          Design thoughts
         </Link>
         . The shelf is separate. For the sabbatical, before the{" "}
         <ExternalLink href={site.personalSite} className="text-link">

@@ -7,7 +7,7 @@ export default function NotFound() {
       <p className="empty">The link may have changed.</p>
       <p className="more">
         <Link href="/" className="text-link">
-          Heading
+          Design thoughts
         </Link>
       </p>
     </>
