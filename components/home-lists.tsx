@@ -27,7 +27,7 @@ export type PostLink = {
 };
 
 export function ThoughtLinks({ notes }: { notes: NoteLink[] }) {
-  if (notes.length === 0) return <p className="empty">Nothing published yet. The note lands at 3am PT.</p>;
+  if (notes.length === 0) return <p className="empty">Nothing published yet. The note lands Monday at 7am PT.</p>;
 
   return (
     <RevealList

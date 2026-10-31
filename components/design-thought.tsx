@@ -1,22 +1,64 @@
 import { ExternalLink } from "@/components/external-link";
-import type { Thought } from "@/lib/thoughts";
+import type { Thought, ThoughtSpan } from "@/lib/thoughts";
+
+function Spans({ spans }: { spans: ThoughtSpan[] }) {
+  return spans.map((span, spanIndex) =>
+    span.href ? (
+      <ExternalLink key={spanIndex} href={span.href} className="text-link">
+        {span.text}
+      </ExternalLink>
+    ) : (
+      <span key={spanIndex}>{span.text}</span>
+    ),
+  );
+}
+
+function linesOf(paragraph: ThoughtSpan[]): ThoughtSpan[][] {
+  const lines: ThoughtSpan[][] = [[]];
+  for (const span of paragraph) {
+    const parts = span.text.split("\n");
+    parts.forEach((part, index) => {
+      if (index > 0) lines.push([]);
+      if (part.length > 0) lines[lines.length - 1].push(span.href ? { text: part, href: span.href } : { text: part });
+    });
+  }
+  return lines.filter((line) => line.some((span) => span.text.trim().length > 0));
+}
+
+function asList(paragraph: ThoughtSpan[]): ThoughtSpan[][] | null {
+  const lines = linesOf(paragraph);
+  if (lines.length < 2 || lines.length > 3) return null;
+  const numbered = lines.every((line) => /^\d+\.\s+\S/.test(line.map((span) => span.text).join("").trim()));
+  if (!numbered) return null;
+  return lines.map((line) => {
+    const next = line.map((span) => ({ ...span }));
+    next[0] = { ...next[0], text: next[0].text.replace(/^\s*\d+\.\s+/, "") };
+    return next.filter((span) => span.text.length > 0);
+  });
+}
 
 export function DesignThought({ thought }: { thought: Thought }) {
   return (
     <div className="prose">
-      {thought.paragraphs.map((paragraph, index) => (
-        <p key={index}>
-          {paragraph.map((span, spanIndex) =>
-            span.href ? (
-              <ExternalLink key={spanIndex} href={span.href} className="text-link">
-                {span.text}
-              </ExternalLink>
-            ) : (
-              <span key={spanIndex}>{span.text}</span>
-            ),
-          )}
-        </p>
-      ))}
+      {thought.paragraphs.map((paragraph, index) => {
+        const list = asList(paragraph);
+        if (list) {
+          return (
+            <ol key={index}>
+              {list.map((item, itemIndex) => (
+                <li key={itemIndex}>
+                  <Spans spans={item} />
+                </li>
+              ))}
+            </ol>
+          );
+        }
+        return (
+          <p key={index}>
+            <Spans spans={paragraph} />
+          </p>
+        );
+      })}
     </div>
   );
 }

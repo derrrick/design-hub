@@ -2,14 +2,14 @@ name: Design thought
 
 on:
   schedule:
-    # 10:00 UTC is 3:00am during PDT. 11:00 UTC is 3:00am during PST.
-    # The script publishes only when the Pacific hour is 3, so one of these is a no-op.
-    - cron: "0 10 * * *"
-    - cron: "0 11 * * *"
+    # 14:00 UTC Monday is 7:00am during PDT. 15:00 UTC Monday is 7:00am during PST.
+    # The script publishes only when Pacific time is Monday 7:00am, so one of these is a no-op.
+    - cron: "0 14 * * 1"
+    - cron: "0 15 * * 1"
   workflow_dispatch:
     inputs:
       force:
-        description: Publish even when it is not 3:00am Pacific
+        description: Publish even when it is not Monday 7:00am Pacific
         type: boolean
         default: false
 

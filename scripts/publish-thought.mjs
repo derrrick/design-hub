@@ -30,6 +30,14 @@ const BANNED = [
   "it is worth noting",
   "in conclusion",
   "the future is bright",
+  "this file",
+  "this pass",
+  "with a knife",
+  "a costume of",
+  "one could argue",
+  "it seems",
+  "sort of",
+  "kind of",
 ];
 
 const LINK = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
@@ -59,6 +67,13 @@ function hourInPT(now = new Date()) {
     .formatToParts(now)
     .find((part) => part.type === "hour");
   return Number(hour?.value ?? "0");
+}
+
+function weekdayInPT(now = new Date()) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Los_Angeles",
+    weekday: "short",
+  }).format(now);
 }
 
 function pacificOffset(iso) {
@@ -150,22 +165,57 @@ function normalizeUrl(value) {
   }
 }
 
+function sentences(paragraph) {
+  return plain(paragraph)
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
+}
+
+function numberedLines(paragraph) {
+  const lines = paragraph
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  if (lines.length < 2 || !lines.every((line) => /^\d+\.\s+\S/.test(line))) return null;
+  return lines;
+}
+
 export function assess(paragraphs, allow) {
-  if (paragraphs.length !== 3) return `expected 3 paragraphs, got ${paragraphs.length}`;
+  if (paragraphs.length < 3) return `expected an opening line, a body, and a takeaway, got ${paragraphs.length} blocks`;
   const allowed = new Set(allow.map(normalizeUrl));
   const lowered = paragraphs.join("\n").toLowerCase();
   const banned = BANNED.find((phrase) => lowered.includes(phrase));
   if (banned) return `banned phrase: ${banned}`;
+
+  const total = words(paragraphs.join(" "));
+  if (total < 100 || total > 180) return `note is ${total} words`;
+
+  const first = plain(paragraphs[0]);
+  if (numberedLines(paragraphs[0]) || sentences(paragraphs[0]).length !== 1) {
+    return "the first line must be one sentence";
+  }
+  if (first.length > 90) return "the first line is too long for the list";
+
+  const last = paragraphs[paragraphs.length - 1];
+  if (last.includes("\n") || words(last) > 14) return "end on one short line";
+
   let links = 0;
   for (const paragraph of paragraphs) {
-    const count = words(paragraph);
-    if (count < 55 || count > 130) return `paragraph is ${count} words`;
+    const list = numberedLines(paragraph);
+    if (list) {
+      if (list.length > 3) return "a numbered list is only for two or three options";
+    } else if (paragraph !== paragraphs[0] && paragraph !== last) {
+      const count = sentences(paragraph).length;
+      if (count < 1 || count > 3) return `a paragraph is ${count} sentences`;
+    }
     for (const match of paragraph.matchAll(LINK)) {
       links += 1;
       if (!allowed.has(normalizeUrl(match[2]))) return `link is not in the source material: ${match[2]}`;
     }
   }
-  if (links < 4) return `only ${links} citations`;
+  if (links < 1) return "cite at least one source";
+  if (links > 5) return `cite at most 5 sources, got ${links}`;
   return null;
 }
 
@@ -192,29 +242,17 @@ async function supabaseGet(query) {
   return response.json();
 }
 
-async function sourceDay(issueDate) {
-  const yesterday = shiftIso(issueDate, -1);
-  const direct = await supabaseGet(
-    `hub_feed_posts?select=feed_date&feed_date=eq.${yesterday}&limit=1`,
-  );
-  if (direct.length > 0) return yesterday;
-  const earlier = await supabaseGet(
-    `hub_feed_posts?select=feed_date&feed_date=lt.${issueDate}&order=feed_date.desc&limit=1`,
-  );
-  return earlier[0]?.feed_date ?? null;
-}
-
-async function postsFor(date) {
+async function postsForWeek(issueDate) {
+  const start = shiftIso(issueDate, -7);
   return supabaseGet(
-    `hub_feed_posts?select=author_name,text,post_url,like_count,topic,links&feed_date=eq.${date}&order=like_count.desc&limit=20`,
+    `hub_feed_posts?select=feed_date,author_name,text,post_url,like_count,topic,links&feed_date=gte.${start}&feed_date=lt.${issueDate}&order=like_count.desc&limit=80`,
   );
 }
 
-async function bookmarksFor(date) {
-  const offset = pacificOffset(date);
-  const next = shiftIso(date, 1);
-  const start = encodeURIComponent(`${date}T00:00:00${offset}`);
-  const end = encodeURIComponent(`${next}T00:00:00${offset}`);
+async function bookmarksForWeek(issueDate) {
+  const startDay = shiftIso(issueDate, -7);
+  const start = encodeURIComponent(`${startDay}T00:00:00${pacificOffset(startDay)}`);
+  const end = encodeURIComponent(`${issueDate}T00:00:00${pacificOffset(issueDate)}`);
   const rows = await supabaseGet(
     `hub_resources?select=title,url,author_handle,note&created_at=gte.${start}&created_at=lt.${end}&order=created_at.asc&limit=20`,
   );
@@ -313,10 +351,10 @@ function previousNote() {
   }
 }
 
-function materialText({ issueDate, sourceDate, posts, bookmarks, web }) {
+function materialText({ issueDate, posts, bookmarks, web }) {
   const postLines = posts.map((post) => {
     const links = Array.isArray(post.links) ? post.links.filter((link) => /^https?:\/\//.test(link)) : [];
-    return `- ${post.author_name || "Unknown"} (${post.like_count ?? 0} likes, ${post.topic || "untagged"})\n  ${post.post_url}\n  ${clip(post.text, 420)}${links.length ? `\n  links: ${links.join(" ")}` : ""}`;
+    return `- ${post.feed_date || "undated"} · ${post.author_name || "Unknown"} (${post.like_count ?? 0} likes, ${post.topic || "untagged"})\n  ${post.post_url}\n  ${clip(post.text, 420)}${links.length ? `\n  links: ${links.join(" ")}` : ""}`;
   });
   const bookmarkLines = bookmarks.map(
     (row) => `- ${row.title} ${row.url}${row.note ? `\n  ${clip(row.note, 200)}` : ""}`,
@@ -327,12 +365,11 @@ function materialText({ issueDate, sourceDate, posts, bookmarks, web }) {
   const tone = previousNote();
   return [
     `Issue date: ${issueDate}`,
-    `Source day: ${sourceDate}`,
     "",
-    "Posts from that day's X file, most likes first:",
+    "Posts from the previous 7 days, most likes first:",
     postLines.join("\n") || "(none)",
     "",
-    "Bookmarks saved that day:",
+    "Bookmarks saved during those 7 days:",
     bookmarkLines.join("\n") || "(none)",
     "",
     `Web search for “${web.query}”, then the pages that would open:`,
@@ -357,23 +394,29 @@ function allowlist({ posts, bookmarks, web }) {
   return urls.filter((url) => /^https?:\/\//.test(url));
 }
 
-const SYSTEM = `You write Design thoughts, a daily note on a personal site about product design.
+const SYSTEM = `You write Design thoughts, a weekly note on a personal site about product design.
 
-Write exactly three paragraphs of plain prose, separated by one blank line. No title, no date, no sign-off, no bullets.
+Write the way Cory Etzkorn writes a short essay: one opinion, stated first, then the shortest path to it. Plain words. Short declarative sentences. No hedging and no throat-clearing.
 
-Take a position. The file is mostly people announcing things. Say so when that is what the material shows. The interesting question is what the work is becoming, including what is being refused, deleted, or left unsaid. Do not encourage the reader. Do not balance every point with a compliment. Do not write as if the industry is on a wholesome journey.
+Shape, with a blank line between blocks:
+- The first block is one sentence. It is the point of view. The home page list shows this sentence, so keep it under 90 characters.
+- Then short paragraphs of one to three sentences.
+- A numbered list only when you are genuinely naming two or three options. Put the items in one block, one per line, starting at "1. ". Otherwise no bullets and no headings.
+- The last block is one line, the takeaway. Two short sentences on that line are fine, as in "Build less. Mean more."
 
-Each paragraph is 60 to 110 words. Use markdown links, [Name](url), for the people and pieces you actually rely on. At least four links. Copy every URL from the material. If a detail is not in the material, leave it out. Do not invent quotes.
+The whole note is 100 to 180 words.
 
-Do not use I. Do not write as Derrick.
+First person is fine. Do not mention this file, this pass, the prompt, or that you are summarizing a feed. Do not write a literary flourish. Never write "with a knife in it" or "a costume of".
 
-Do not use: excited, thrilled, landscape, delve, unlock, empower, robust, leverage, game-changer, tapestry, "it's worth noting", "in conclusion", "the future is bright".
+Link a name inline as [Name](url). Cite at most 5 sources, and only the ones that support the argument. Do not summarize everything you were given. Copy every URL from the material. If a detail is not in the material, leave it out. Do not invent quotes.
 
-Return only the three paragraphs.`;
+Do not use: excited, thrilled, landscape, delve, unlock, empower, robust, leverage, game-changer, tapestry, "it's worth noting", "in conclusion", "the future is bright", "one could argue", "it seems", "sort of", "kind of".
+
+Return only the note.`;
 
 async function complete(user) {
   const token = process.env.GITHUB_TOKEN;
-  if (!token) throw new Error("GITHUB_TOKEN is missing. The daily job runs in GitHub Actions, which provides one.");
+  if (!token) throw new Error("GITHUB_TOKEN is missing. The weekly job runs in GitHub Actions, which provides one.");
   const models = [process.env.THOUGHT_MODEL, "openai/gpt-4.1-mini", "openai/gpt-4o-mini"].filter(Boolean);
   let lastError = "no model response";
   for (const model of [...new Set(models)]) {
@@ -412,8 +455,9 @@ function splitParagraphs(text) {
   return text
     .replace(/^```(?:markdown|md|text)?\s*/i, "")
     .replace(/\s*```$/, "")
+    .trim()
     .split(/\n\s*\n/)
-    .map((paragraph) => paragraph.replace(/\s+/g, " ").trim())
+    .map((paragraph) => paragraph.replace(/[ \t]*\n[ \t]*/g, "\n").replace(/[ \t]{2,}/g, " ").trim())
     .filter(Boolean);
 }
 
@@ -451,15 +495,31 @@ async function main() {
     }
     const bad = assess(["hi", "there", "friend"], []);
     if (!bad) throw new Error("assess should reject a short draft");
+    const luke = "https://www.lukew.com/ff/entry.asp?2164";
+    const good = [
+      "Design's job right now is refusal.",
+      `[Luke Wroblewski](${luke}) put it simply. There are two ways to make money in software, bundling and unbundling. AI is speed-running the bundling.`,
+      "A feature can work and still make the product worse. Add enough of them and the product is an average. You cannot feel anyone behind it.",
+      "Someone has to decide what stays. Agents will follow a written rule. They will not know when the rule is wrong.",
+      "The font that traveled is not the lesson. The lesson is what shipped beside it. Attention is not a brief.",
+      "Refusal is the work.",
+      "Build less. Mean more.",
+    ];
+    const goodReason = assess(good, [luke]);
+    if (goodReason) throw new Error(`assess rejected a good draft: ${goodReason}`);
+    const extra = good[2].replace(/\.$/, " [A](https://example.com/a) [B](https://example.com/b) [C](https://example.com/c) [D](https://example.com/d) [E](https://example.com/e).");
+    const crowded = assess([...good.slice(0, 2), extra, ...good.slice(3)], [luke, "https://example.com/a", "https://example.com/b", "https://example.com/c", "https://example.com/d", "https://example.com/e"]);
+    if (!crowded || !crowded.includes("at most 5")) throw new Error(`assess should cap citations, got ${crowded}`);
     if (hourInPT(new Date()) < 0 || hourInPT(new Date()) > 23) throw new Error("hour out of range");
+    if (!/^(Sun|Mon|Tue|Wed|Thu|Fri|Sat)$/.test(weekdayInPT(new Date()))) throw new Error("weekday out of range");
     console.log("self-test ok");
     return;
   }
 
   const force = args.has("--force") || process.env.FORCE === "1";
   const dry = args.has("--dry-run");
-  if (!force && !dry && hourInPT() !== 3) {
-    console.log("Not 3:00am Pacific. Skipping.");
+  if (!force && !dry && (weekdayInPT() !== "Mon" || hourInPT() !== 7)) {
+    console.log("Not Monday 7:00am Pacific. Skipping.");
     return;
   }
 
@@ -470,22 +530,17 @@ async function main() {
     return;
   }
 
-  const sourceDate = await sourceDay(issueDate);
-  if (!sourceDate) {
-    console.log("No earlier X file to write from.");
-    return;
-  }
-  const [posts, bookmarks] = await Promise.all([postsFor(sourceDate), bookmarksFor(sourceDate)]);
+  const [posts, bookmarks] = await Promise.all([postsForWeek(issueDate), bookmarksForWeek(issueDate)]);
   if (posts.length === 0) {
-    console.log(`No posts for ${sourceDate}.`);
+    console.log("No posts in the previous 7 days.");
     return;
   }
   const web = await searchWeb();
-  const packed = { issueDate, sourceDate, posts, bookmarks, web };
+  const packed = { issueDate, posts, bookmarks, web };
   const user = materialText(packed);
   const allow = allowlist(packed);
   console.log(
-    `Issue ${issueDate} from ${sourceDate}: ${posts.length} posts, ${bookmarks.length} bookmarks, ${web.results.length} search results.`,
+    `Issue ${issueDate} from the previous 7 days: ${posts.length} posts, ${bookmarks.length} bookmarks, ${web.results.length} search results.`,
   );
   for (const item of web.results) console.log(`  - ${item.title} <${item.link}>`);
   if (dry) {
