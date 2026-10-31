@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { BackLink } from "@/components/back-link";
 import { FeedList } from "@/components/feed-list";
 import { PreviousList } from "@/components/previous-list";
 import { formatDayYear, formatThoughtDate, isIsoDate } from "@/lib/format";
@@ -38,12 +39,15 @@ export default async function ResourceDayPage({ params }: { params: Promise<{ da
     .map((day) => ({ href: `/resources/${day.date}`, label: formatThoughtDate(day.date) }));
 
   return (
-    <>
-      <h1>
+    <section className="band">
+      <BackLink href="/#resources" />
+      <h1 className="label follows">
         <time dateTime={date}>{formatThoughtDate(date)}</time>
       </h1>
-      <FeedList posts={posts} label={`Posts for ${formatDayYear(date)}`} />
-      <PreviousList items={previous} />
-    </>
+      <div className="slot follows">
+        <FeedList posts={posts} label={`Posts for ${formatDayYear(date)}`} />
+      </div>
+      <PreviousList id="day-previous" items={previous} />
+    </section>
   );
 }

@@ -5,31 +5,42 @@ import { useState } from "react";
 
 const PAGE = 5;
 
-export function PreviousList({ items }: { items: { href: string; label: string }[] }) {
+export function PreviousList({
+  items,
+  id,
+}: {
+  items: { href: string; label: string }[];
+  id: string;
+}) {
   const [shown, setShown] = useState(PAGE);
   if (items.length === 0) return null;
   const visible = items.slice(0, shown);
   const remaining = items.length - visible.length;
 
   return (
-    <section className="previous" aria-labelledby="previous-heading">
-      <h2 id="previous-heading">Previous</h2>
-      <ul>
-        {visible.map((item) => (
-          <li key={item.href}>
-            <Link href={item.href} className="text-link">
-              {item.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <div className="subrows" role="region" aria-labelledby={id}>
+      <h3 className="label group-label" id={id}>
+        Previous
+      </h3>
+      <div className="slot group-label" />
+      {visible.map((item) => (
+        <div className="pair" key={item.href}>
+          <Link href={item.href} className="label date-link">
+            {item.label}
+          </Link>
+          <span className="slot" />
+        </div>
+      ))}
       {remaining > 0 ? (
-        <p className="more">
-          <button type="button" className="more-btn" onClick={() => setShown((count) => count + PAGE)}>
-            More
-          </button>
-        </p>
+        <div className="pair">
+          <div className="label">
+            <button type="button" className="more-btn" onClick={() => setShown((count) => count + PAGE)}>
+              More
+            </button>
+          </div>
+          <span className="slot" />
+        </div>
       ) : null}
-    </section>
+    </div>
   );
 }

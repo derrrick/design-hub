@@ -23,7 +23,7 @@ function ResourceRow({ resource }: { resource: Resource }) {
       )}
       {resource.note ? <p className="note">{resource.note}</p> : null}
       {resource.xPostUrl || resource.authorHandle ? (
-        <p className="meta">
+        <p className="meta mono">
           {resource.xPostUrl && resource.xPostUrl !== resource.url ? (
             <ExternalLink href={resource.xPostUrl} className="text-link">
               Post
@@ -47,6 +47,36 @@ function ResourceRow({ resource }: { resource: Resource }) {
   );
 }
 
+function Group({
+  id,
+  label,
+  description,
+  items,
+}: {
+  id: string;
+  label: string;
+  description?: string | null;
+  items: Resource[];
+}) {
+  if (items.length === 0) return null;
+
+  return (
+    <div className="subrows">
+      <h3 className="label group-label" id={id}>
+        {label}
+      </h3>
+      <div className="slot group-label">
+        {description ? <p className="note">{description}</p> : null}
+        <ul className="resources">
+          {items.map((resource) => (
+            <ResourceRow key={resource.url} resource={resource} />
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 export function ResourceBrowser({
   categories,
   resources,
@@ -55,13 +85,11 @@ export function ResourceBrowser({
   resources: Resource[];
 }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("all");
   const names = useMemo(() => new Map(categories.map((item) => [item.slug, item.name])), [categories]);
   const q = query.trim().toLowerCase();
-  const browsing = q === "" && category === "all";
+  const browsing = q === "";
 
   const matched = resources.filter((resource) => {
-    if (category !== "all" && resource.categorySlug !== category) return false;
     if (!q) return true;
     return haystack(resource, names.get(resource.categorySlug) ?? "").includes(q);
   });
@@ -69,33 +97,27 @@ export function ResourceBrowser({
   const startHere = browsing ? matched.filter((resource) => resource.featured) : [];
 
   const groups = categories.flatMap((cat) => {
-    if (category !== "all" && cat.slug !== category) return [];
     const inCategory = matched.filter((resource) => resource.categorySlug === cat.slug);
     const items = browsing ? inCategory.filter((resource) => !resource.featured) : inCategory;
-    if (browsing && items.length === 0 && inCategory.length > 0) return [];
-    if (!browsing && items.length === 0) {
-      if (q === "" && category === cat.slug) return [{ cat, items, empty: true }];
-      return [];
-    }
-    if (browsing && inCategory.length === 0) return [{ cat, items: [], empty: true }];
-    return [{ cat, items, empty: items.length === 0 }];
+    if (items.length === 0) return [];
+    return [{ cat, items }];
   });
 
-  const nothing = startHere.length === 0 && groups.every((group) => group.items.length === 0);
+  const nothing = startHere.length === 0 && groups.length === 0;
 
   return (
-    <div className="browser">
-      <form className="tools" role="search" onSubmit={(event) => event.preventDefault()}>
-        <label className="search-label mono" htmlFor="resource-search">
-          Search
-        </label>
+    <div className="contents">
+      <form className="slot tools" role="search" onSubmit={(event) => event.preventDefault()}>
         <div className="search-row">
+          <label className="sr-only" htmlFor="resource-search">
+            Search resources
+          </label>
           <input
             id="resource-search"
             type="search"
             name="q"
             value={query}
-            placeholder="Title, note, or author"
+            placeholder="Search resources"
             autoCapitalize="off"
             autoCorrect="off"
             spellCheck={false}
@@ -107,62 +129,42 @@ export function ResourceBrowser({
             </button>
           ) : null}
         </div>
-        <div className="filters" role="group" aria-label="Filter by category">
-          <button type="button" aria-pressed={category === "all"} onClick={() => setCategory("all")}>
-            All
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.slug}
-              type="button"
-              aria-pressed={category === cat.slug}
-              onClick={() => setCategory(cat.slug)}
-            >
-              {cat.name}
-            </button>
-          ))}
-        </div>
       </form>
 
       {q && nothing ? (
-        <p className="empty" aria-live="polite">
-          No matches.
-        </p>
+        <div className="pair">
+          <span className="label" />
+          <p className="slot empty" aria-live="polite">
+            No matches.
+          </p>
+        </div>
       ) : null}
       {q && !nothing ? (
-        <p className="count mono" aria-live="polite">
-          {matched.length} {matched.length === 1 ? "match" : "matches"}
-        </p>
+        <div className="pair">
+          <span className="label" />
+          <p className="slot count mono" aria-live="polite">
+            {matched.length} {matched.length === 1 ? "match" : "matches"}
+          </p>
+        </div>
       ) : null}
 
-      {startHere.length > 0 ? (
-        <section className="group" aria-labelledby="start-here">
-          <h2 id="start-here">Start here</h2>
-          <ul className="resources">
-            {startHere.map((resource) => (
-              <ResourceRow key={`featured-${resource.url}`} resource={resource} />
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
+      <Group id="start-here" label="Start here" items={startHere} />
       {groups.map((group) => (
-        <section key={group.cat.slug} className="group" aria-labelledby={`cat-${group.cat.slug}`}>
-          <h2 id={`cat-${group.cat.slug}`}>{group.cat.name}</h2>
-          {group.cat.description ? <p className="dek">{group.cat.description}</p> : null}
-          {group.empty ? (
-            <p className="empty">Nothing saved here yet.</p>
-          ) : (
-            <ul className="resources">
-              {group.items.map((resource) => (
-                <ResourceRow key={resource.url} resource={resource} />
-              ))}
-            </ul>
-          )}
-        </section>
+        <Group
+          key={group.cat.slug}
+          id={`cat-${group.cat.slug}`}
+          label={group.cat.name}
+          description={group.cat.description}
+          items={group.items}
+        />
       ))}
 
-      {!q && nothing ? <p className="empty">Nothing saved on the shelf yet.</p> : null}
+      {!q && nothing ? (
+        <div className="pair">
+          <span className="label" />
+          <p className="slot empty">Nothing saved on the shelf yet.</p>
+        </div>
+      ) : null}
     </div>
   );
 }

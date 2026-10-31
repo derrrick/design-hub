@@ -15,10 +15,8 @@ function ProjectLink({ title }: { title: string }) {
 export function AboutIntro() {
   return (
     <>
-      <p className="identity">
-        <span className="mono">{site.title}</span>
-        <span className="mono">{site.location}</span>
-      </p>
+      <p className="role mono">{site.title}</p>
+      <p className="where mono">{site.location}</p>
       <p className="lede">
         Product designer and builder. Eight years at Square working on AI, help, and pricing systems
         across the seller journey. Before that, Google, Salesforce, and UserTesting. I also design

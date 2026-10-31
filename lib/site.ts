@@ -1,6 +1,6 @@
 export const site = {
   name: "Derrick Schippert",
-  title: "Design & Technology",
+  title: "Design Engineer",
   location: "Based in Bay Area",
   description: "Design thoughts, a reading shelf, and selected work.",
   personalSite: "https://dschippert.com",

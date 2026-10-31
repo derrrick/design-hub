@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
-import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { AboutIntro } from "@/components/about-intro";
-import { SiteNav } from "@/components/site-nav";
 import { hubUrl, site } from "@/lib/site";
 
 import "./globals.css";
@@ -81,13 +78,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Skip to content
         </a>
         <div className="column">
-          <header className="mast">
-            <Link className="name" href="/">
-              {site.name}
-            </Link>
-            <AboutIntro />
-            <SiteNav />
-          </header>
           <main id="content" tabIndex={-1}>
             {children}
           </main>

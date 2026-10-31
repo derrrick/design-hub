@@ -12,7 +12,7 @@ function Meta({ post }: { post: FeedPost }) {
   if (metrics.length === 0 && !post.article) return null;
 
   return (
-    <p className="meta">
+    <p className="meta mono">
       {metrics.length > 0 ? <span>{metrics.join(" · ")}</span> : null}
       {metrics.length > 0 && post.article ? <span className="sep"> · </span> : null}
       {post.article ? (
@@ -32,26 +32,22 @@ export function FeedList({ posts, label }: { posts: FeedPost[]; label: string })
       {posts.map((post) => (
         <li key={post.id}>
           <article className="post">
-            <div className="post-top">
-              <div className="who">
-                <h2>
-                  <ExternalLink href={post.postUrl} className="text-link">
-                    {post.authorName}
-                    <span className="sr-only"> on X</span>
+            <p className="who">
+              <ExternalLink href={post.postUrl} className="text-link who-name">
+                {post.authorName}
+                <span className="sr-only"> on X</span>
+              </ExternalLink>
+              {post.authorHandle ? (
+                post.profileUrl ? (
+                  <ExternalLink href={post.profileUrl} className="handle mono text-link">
+                    {post.authorHandle}
                   </ExternalLink>
-                </h2>
-                {post.authorHandle ? (
-                  post.profileUrl ? (
-                    <ExternalLink href={post.profileUrl} className="handle text-link">
-                      {post.authorHandle}
-                    </ExternalLink>
-                  ) : (
-                    <span className="handle">{post.authorHandle}</span>
-                  )
-                ) : null}
-              </div>
-              {post.topic ? <p className="topic mono">{post.topic}</p> : null}
-            </div>
+                ) : (
+                  <span className="handle mono">{post.authorHandle}</span>
+                )
+              ) : null}
+              {post.topic ? <span className="topic mono">{post.topic}</span> : null}
+            </p>
             {post.excerpt ? <p className="excerpt">{post.excerpt}</p> : null}
             {post.note ? <p className="note">{post.note}</p> : null}
             <Meta post={post} />
