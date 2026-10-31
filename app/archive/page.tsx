@@ -21,7 +21,7 @@ export default async function ArchivePage() {
         <>
           <p className="empty">No earlier days yet.</p>
           <p className="more">
-            <Link href="/" className="text-link">
+            <Link href="/today" className="text-link">
               Today
             </Link>
           </p>

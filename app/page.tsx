@@ -1,51 +1,40 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-import { ExternalLink } from "@/components/external-link";
-import { FeedList } from "@/components/feed-list";
-import { formatDay, formatDayYear } from "@/lib/format";
-import { getLatestReading } from "@/lib/hub";
-import { site } from "@/lib/site";
+import { HeadingEssay } from "@/components/heading-essay";
+import { HeadingFile } from "@/components/heading-file";
+import { HeadingLedger } from "@/components/heading-ledger";
+import { formatDayYear } from "@/lib/format";
+import { getDateCounts, getPostsForDate } from "@/lib/hub";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  description: site.description,
+  title: "Where this is heading",
+  description:
+    "An argument about where product design is heading, read against the morning file and a few pieces outside it.",
 };
 
-export default async function HomePage() {
-  const reading = await getLatestReading();
+export default async function HeadingPage() {
+  const days = await getDateCounts();
+  const latest = days[0] ?? null;
+  const previous = days[1] ?? null;
+  const [posts, earlierPosts] = await Promise.all([
+    latest ? getPostsForDate(latest.date) : Promise.resolve([]),
+    previous ? getPostsForDate(previous.date) : Promise.resolve([]),
+  ]);
+  const date = latest?.date ?? posts[0]?.feedDate ?? null;
 
   return (
-    <>
-      <p className="intro">
-        A daily pass at where product design is heading, and a shelf of things kept from X. For the
-        sabbatical, before the <ExternalLink href={site.personalSite} className="text-link">personal site</ExternalLink>{" "}
-        and the deck get rebuilt.
+    <article>
+      <h1 className="piece-title">Where this is heading</h1>
+      <p className="dek">
+        {date ? <time dateTime={date}>{formatDayYear(date)}</time> : "No file yet"}
+        <span className="sep"> · </span>
+        argument, not a briefing
       </p>
-      <h1>
-        Today{" "}
-        {reading.date ? (
-          <time className="mono date" dateTime={reading.date}>
-            {formatDay(reading.date)}
-          </time>
-        ) : null}
-      </h1>
-      {!reading.date ? (
-        <p className="empty">Nothing filed yet. The morning reading lands around 6am PT.</p>
-      ) : (
-        <>
-          {!reading.isToday ? (
-            <p className="empty">Nothing new yet today. Showing the latest reading.</p>
-          ) : null}
-          <FeedList posts={reading.posts} label={`Posts for ${formatDayYear(reading.date)}`} />
-          <p className="more">
-            <Link href="/archive" className="text-link">
-              Earlier
-            </Link>
-          </p>
-        </>
-      )}
-    </>
+      <HeadingLedger posts={posts} previous={earlierPosts} previousDate={previous?.date ?? null} />
+      <HeadingEssay />
+      <HeadingFile posts={posts} />
+    </article>
   );
 }

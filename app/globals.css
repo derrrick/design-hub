@@ -228,6 +228,59 @@ h2 {
   line-height: 18px;
 }
 
+h1.piece-title {
+  color: var(--ink);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+
+.ledger {
+  margin-bottom: var(--space-6);
+}
+
+.prose {
+  line-height: 22px;
+}
+
+.prose p + p {
+  margin-top: var(--space-5);
+}
+
+.sources {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.filed {
+  margin-top: var(--space-9);
+}
+
+.file-group + .file-group {
+  margin-top: var(--space-6);
+}
+
+.file-group h3 {
+  color: var(--muted);
+  margin-bottom: var(--space-3);
+}
+
+.file-item + .file-item {
+  margin-top: var(--space-4);
+}
+
+.file-excerpt {
+  margin-top: var(--space-2);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.file-meta {
+  margin-top: var(--space-2);
+  color: var(--muted);
+}
+
 .text-link {
   color: var(--ink);
   text-decoration: underline;
