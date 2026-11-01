@@ -9,7 +9,7 @@ import { getCategories, getEarlierDays, getLatestReading, getResources } from "@
 import { site } from "@/lib/site";
 import { listThoughts, type Thought } from "@/lib/thoughts";
 import type { Resource } from "@/lib/types";
-import { professional, sideProjects } from "@/lib/work";
+import { experience, professional, sideProjects } from "@/lib/work";
 
 export const revalidate = 3600;
 
@@ -100,6 +100,12 @@ export default async function HomePage() {
           </Link>
         </h1>
         <AboutIntro />
+      </section>
+
+      <section className="band" id="experience">
+        <h2 className="label">Experience</h2>
+        <div className="slot" />
+        <WorkList items={experience} />
       </section>
 
       <section className="band" id="work">

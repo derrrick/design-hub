@@ -1,12 +1,25 @@
 export type WorkItem = {
   title: string;
-  href: string;
+  href?: string;
   note: string;
   years?: string;
+  store?: { label: string; href: string };
 };
 
 // Copy and links are the public portfolio at dschippert.com.
 // Square’s years are the Block (Square) dates on /resume. The side projects publish no years.
+// Titles and years are the public resume at dschippert.com/resume.
+export const experience: WorkItem[] = [
+  { years: "2019–2026", title: "Block (Square)", note: "Staff Product Designer" },
+  { years: "2018–2019", title: "Dockyard", note: "Sr. Product Designer" },
+  { years: "2018", title: "Google", note: "UX Designer" },
+  { years: "2017", title: "UserTesting", note: "Sr. Product Designer" },
+  { years: "2015–2017", title: "GoDaddy", note: "Sr. Product Designer" },
+  { years: "2014–2015", title: "RetailMeNot", note: "Product Designer" },
+  { years: "2013–2014", title: "Salesforce", note: "UI & UX Designer" },
+  { years: "2011–2013", title: "LivingSocial", note: "UX Designer" },
+];
+
 export const professional: WorkItem[] = [
   {
     years: "2019–2026",
@@ -36,5 +49,14 @@ export const sideProjects: WorkItem[] = [
     title: "Vector",
     href: "https://www.vectordrop.app/",
     note: "A free Mac app for converting images to vectors. Drop a raster, get a clean SVG instantly.",
+  },
+  {
+    title: "Cutline",
+    href: "https://joincutline.com",
+    store: {
+      label: "App Store",
+      href: "https://apps.apple.com/us/app/cutline-photo-critique/id6778603576",
+    },
+    note: "Honest critique on your photos, from photographers. Give one, get one back — on the web and iPhone.",
   },
 ];

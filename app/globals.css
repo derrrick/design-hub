@@ -453,7 +453,8 @@ h1 {
 
 .work-title,
 .who-name,
-.resource-title {
+.resource-title,
+.job {
   font-weight: var(--weight-medium);
 }
 
@@ -466,6 +467,10 @@ h1 {
 
 .hit .note {
   margin-top: 0;
+}
+
+.open > .hit:first-child {
+  margin-top: var(--space-5);
 }
 
 .who {
