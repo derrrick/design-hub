@@ -117,9 +117,9 @@ export default async function HomePage() {
       </section>
 
       <section className="band" id="work">
-        <h2 className="label">Work</h2>
+        <h2 className="label">Recent work</h2>
         <div className="slot" />
-        <WorkList heading="Professional" items={professional} first />
+        <WorkList items={professional} />
         <WorkList heading="Side projects" items={sideProjects} />
       </section>
 

@@ -1,9 +1,8 @@
 export type WorkItem = {
   title: string;
   href?: string;
-  note: string;
+  note?: string;
   years?: string;
-  mark?: string;
   store?: { label: string; href: string };
   children?: WorkItem[];
 };
@@ -29,36 +28,11 @@ export const professional: WorkItem[] = [
     href: "https://dschippert.com/square",
     note: "Unified AI surfaces, help systems, and pricing architecture across the entire seller journey — from onboarding to enterprise support.",
     children: [
-      {
-        mark: "01",
-        title: "Unified AI Surfaces",
-        href: "https://dschippert.com/projects/unified-ai-surfaces",
-        note: "Delivering a single, cohesive AI-powered support experience across every Square property.",
-      },
-      {
-        mark: "02",
-        title: "AI-Driven Help",
-        href: "https://dschippert.com/projects/ai-driven-help",
-        note: "From prototype to production: transforming Square's Support Center with generative AI in 6 weeks.",
-      },
-      {
-        mark: "03",
-        title: "Pricing and Packaging",
-        href: "https://dschippert.com/projects/pricing-packaging",
-        note: "Defining how phone support fits into Square's new pricing tiers — protecting seller trust while capturing $10.2M in annual savings.",
-      },
-      {
-        mark: "04",
-        title: "Sales and Onboarding",
-        href: "https://dschippert.com/projects/sales-onboarding",
-        note: "Improving acquisition and onboarding for Square's highest-value sellers.",
-      },
-      {
-        mark: "05",
-        title: "Internal Tools and Operations",
-        href: "https://dschippert.com/projects/internal-tools",
-        note: "Building the internal systems that power Square's Support, Sales, and Design operations.",
-      },
+      { title: "Unified AI Surfaces", href: "https://dschippert.com/projects/unified-ai-surfaces" },
+      { title: "AI-Driven Help", href: "https://dschippert.com/projects/ai-driven-help" },
+      { title: "Pricing and Packaging", href: "https://dschippert.com/projects/pricing-packaging" },
+      { title: "Sales and Onboarding", href: "https://dschippert.com/projects/sales-onboarding" },
+      { title: "Internal Tools and Operations", href: "https://dschippert.com/projects/internal-tools" },
     ],
   },
 ];

@@ -22,24 +22,31 @@ export function ExperienceList({ items }: { items: WorkItem[] }) {
 export function WorkList({
   heading,
   items,
-  first = false,
 }: {
-  heading: string;
+  heading?: string;
   items: WorkItem[];
-  first?: boolean;
 }) {
-  const gap = first ? "first-group" : "group-label";
-
   return (
     <div className="subrows">
-      <h3 className={`label ${gap}`}>{heading}</h3>
-      <div className={`slot ${gap}`} />
+      {heading ? (
+        <>
+          <h3 className="label group-label">{heading}</h3>
+          <div className="slot group-label" />
+        </>
+      ) : null}
       {items.map((item) => (
         <Fragment key={item.href ?? item.title}>
           <WorkRow item={item} />
-          {item.children?.map((child) => (
-            <WorkRow key={child.href ?? child.title} item={child} />
-          ))}
+          {item.children?.length ? (
+            <div className="subs">
+              {item.children.map((child) => (
+                <ExternalLink key={child.href ?? child.title} href={child.href ?? ""} className="sub">
+                  <span aria-hidden="true">→</span>
+                  <span className="sub-title">{child.title}</span>
+                </ExternalLink>
+              ))}
+            </div>
+          ) : null}
         </Fragment>
       ))}
     </div>
@@ -47,9 +54,8 @@ export function WorkList({
 }
 
 function WorkRow({ item }: { item: WorkItem }) {
-  const mark = item.mark ?? item.years;
-  const years = mark ? <span className="label mono">{mark}</span> : <span className="label" />;
-  const note = <span className="note">{item.note}</span>;
+  const years = item.years ? <span className="label mono">{item.years}</span> : <span className="label" />;
+  const note = item.note ? <span className="note">{item.note}</span> : null;
 
   if (item.store && item.href) {
     return (

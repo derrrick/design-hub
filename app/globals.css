@@ -284,10 +284,6 @@ h1 {
   margin-top: var(--space-6);
 }
 
-.first-group {
-  margin-top: var(--space-5);
-}
-
 .back,
 .date-link,
 .more-btn {
@@ -468,6 +464,32 @@ h1 {
   margin-top: 0;
 }
 
+.subs {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-1);
+}
+
+.sub {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  width: fit-content;
+  max-width: 100%;
+  color: inherit;
+  line-height: var(--lh);
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.sub-title {
+  text-decoration: underline;
+  text-decoration-color: var(--underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
 .roles {
   grid-column: 1 / -1;
   display: grid;
@@ -615,6 +637,7 @@ h1 {
   }
 
   .text-link:hover,
+  .sub:hover .sub-title,
   .hit:hover .work-title,
   .line-row:hover .line-text,
   .line-row:hover .line-title,
@@ -631,6 +654,7 @@ h1 {
 .label-link:active,
 .more-btn:active,
 .hit:active,
+.sub:active,
 .line-row:active,
 .clear:active,
 .retry:active,
@@ -657,6 +681,10 @@ input:-webkit-autofill {
 
   .hit {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .subs {
+    grid-column: 1;
   }
 
   .roles {
