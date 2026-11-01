@@ -240,6 +240,21 @@ h1 {
   min-width: 0;
 }
 
+.mark {
+  height: 280px;
+  margin-bottom: var(--space-5);
+}
+
+.mark > div {
+  width: 100%;
+  height: 100%;
+}
+
+.identity {
+  position: relative;
+  min-width: 0;
+}
+
 .avatar {
   width: var(--avatar);
   height: var(--avatar);
@@ -602,9 +617,13 @@ input:-webkit-autofill {
 }
 
 @media (min-width: 861px) {
+  .mark {
+    height: 360px;
+  }
+
   .avatar {
     position: absolute;
-    top: var(--space-9);
+    top: 0;
     right: calc(100% + var(--space-4));
     margin-bottom: 0;
   }

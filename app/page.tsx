@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { AboutIntro } from "@/components/about-intro";
 import { DayLinks, PostLinks, ResourceLinks, ThoughtLinks } from "@/components/home-lists";
+import { Mark3D } from "@/components/mark-3d";
 import { WorkList } from "@/components/work-list";
 import { formatThoughtDate } from "@/lib/format";
 import { getCategories, getEarlierDays, getLatestReading, getResources } from "@/lib/hub";
@@ -93,22 +94,25 @@ export default async function HomePage() {
   return (
     <>
       <section className="hero">
-        <div className="avatar">
-          <Image
-            src="/derrick.webp"
-            alt="Derrick Schippert"
-            width={48}
-            height={48}
-            sizes="48px"
-            quality={90}
-            priority
-          />
+        <Mark3D />
+        <div className="identity">
+          <div className="avatar">
+            <Image
+              src="/derrick.webp"
+              alt="Derrick Schippert"
+              width={48}
+              height={48}
+              sizes="48px"
+              quality={90}
+              priority
+            />
+          </div>
+          <h1>
+            <Link className="name" href="/">
+              {site.name}
+            </Link>
+          </h1>
         </div>
-        <h1>
-          <Link className="name" href="/">
-            {site.name}
-          </Link>
-        </h1>
         <AboutIntro />
       </section>
 
