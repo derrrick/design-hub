@@ -77,6 +77,39 @@ export function todayInPT(now = new Date()): string {
   }).format(now);
 }
 
+const SNOWFLAKE_EPOCH = BigInt("1288834974657");
+
+export function calendarInPT(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  const iso = todayInPT(date);
+  return isIsoDate(iso) ? iso : null;
+}
+
+// Bookmark rows share one import timestamp. The post date is the X status id.
+export function xPostDate(value: string | null | undefined): string | null {
+  const href = safeHttpUrl(value);
+  if (!href) return null;
+  let id: string | undefined;
+  try {
+    const url = new URL(href);
+    if (!isStatusHost(url.hostname)) return null;
+    id = url.pathname.match(/\/status\/(\d+)/)?.[1];
+  } catch {
+    return null;
+  }
+  if (!id) return null;
+  let ms: number;
+  try {
+    ms = Number((BigInt(id) >> BigInt(22)) + SNOWFLAKE_EPOCH);
+  } catch {
+    return null;
+  }
+  if (!Number.isSafeInteger(ms)) return null;
+  return calendarInPT(new Date(ms).toISOString());
+}
+
 export function formatThoughtDate(iso: string): string {
   return new Intl.DateTimeFormat("en-US", {
     month: "short",

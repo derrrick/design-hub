@@ -15,6 +15,7 @@ export type Resource = {
   tags: string[];
   note: string;
   featured: boolean;
+  postedOn: string | null;
 };
 
 export type ArticleLink = {
@@ -36,6 +37,7 @@ export type FeedPost = {
   replies: number;
   article: ArticleLink | null;
   postedAt: string;
+  postedOn: string | null;
   feedDate: string;
 };
 

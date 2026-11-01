@@ -17,6 +17,8 @@ export type ResourceLink = {
   href: string;
   title: string;
   meta: string;
+  date: string;
+  label: string;
   haystack: string;
 };
 
@@ -24,6 +26,8 @@ export type PostLink = {
   href: string;
   title: string;
   meta: string;
+  date: string;
+  label: string;
 };
 
 export function ThoughtLinks({ notes }: { notes: NoteLink[] }) {
@@ -88,11 +92,20 @@ export function ResourceLinks({ items }: { items: ResourceLink[] }) {
           key={q}
           items={matched}
           size={10}
-          getKey={(item) => item.href}
+          getKey={(item) => `${item.date}:${item.href}:${item.title}`}
           render={(item) => (
             <ExternalLink href={item.href} className="line-row">
-              <span className="line-title">{item.title}</span>
-              {item.meta ? <span className="line-meta mono">{item.meta}</span> : null}
+              {item.label ? (
+                <time className="mono when" dateTime={item.date}>
+                  {item.label}
+                </time>
+              ) : (
+                <span className="when" />
+              )}
+              <span className="line-body">
+                <span className="line-title">{item.title}</span>
+                {item.meta ? <span className="line-meta mono">{item.meta}</span> : null}
+              </span>
             </ExternalLink>
           )}
         />
@@ -111,8 +124,17 @@ export function PostLinks({ posts }: { posts: PostLink[] }) {
       getKey={(post) => post.href}
       render={(post) => (
         <ExternalLink href={post.href} className="line-row">
-          <span className="line-title">{post.title}</span>
-          {post.meta ? <span className="line-meta">{post.meta}</span> : null}
+          {post.label ? (
+            <time className="mono when" dateTime={post.date}>
+              {post.label}
+            </time>
+          ) : (
+            <span className="when" />
+          )}
+          <span className="line-body">
+            <span className="line-title">{post.title}</span>
+            {post.meta ? <span className="line-meta line-note">{post.meta}</span> : null}
+          </span>
         </ExternalLink>
       )}
     />

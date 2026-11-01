@@ -8,6 +8,7 @@ import { formatThoughtDate } from "@/lib/format";
 import { getCategories, getEarlierDays, getLatestReading, getResources } from "@/lib/hub";
 import { site } from "@/lib/site";
 import { listThoughts, type Thought } from "@/lib/thoughts";
+import type { Resource } from "@/lib/types";
 import { professional, sideProjects } from "@/lib/work";
 
 export const revalidate = 3600;
@@ -19,6 +20,16 @@ function oneLine(text: string, max: number): string {
   const lastSpace = cut.lastIndexOf(" ");
   const trimmed = (lastSpace > 40 ? cut.slice(0, lastSpace) : cut).trimEnd();
   return `${trimmed.replace(/[.,;:]+$/, "")}…`;
+}
+
+function byBookmarkDate(a: Resource, b: Resource): number {
+  if (a.postedOn !== b.postedOn) {
+    if (!a.postedOn) return 1;
+    if (!b.postedOn) return -1;
+    return a.postedOn < b.postedOn ? 1 : -1;
+  }
+  if (a.featured !== b.featured) return a.featured ? -1 : 1;
+  return a.title.localeCompare(b.title, "en");
 }
 
 function firstLine(thought: Thought): string {
@@ -43,24 +54,34 @@ export default async function HomePage() {
   ]);
 
   const names = new Map(categories.map((category) => [category.slug, category.name]));
-  const shelf = [...resources.filter((item) => item.featured), ...resources.filter((item) => !item.featured)]
+  const shelf = resources
     .filter((item) => item.url)
+    .sort(byBookmarkDate)
     .map((item) => {
       const category = names.get(item.categorySlug) ?? "";
       const meta = [category, item.authorHandle].filter(Boolean).join(" · ");
+      const date = item.postedOn ?? "";
+      const label = date ? formatThoughtDate(date) : "";
       return {
         href: item.url,
         title: item.title,
         meta,
-        haystack: [item.title, meta, item.note, item.tags.join(" ")].join(" ").toLowerCase(),
+        date,
+        label,
+        haystack: [item.title, meta, item.note, item.tags.join(" "), date, label].join(" ").toLowerCase(),
       };
     });
 
-  const posts = reading.posts.map((post) => ({
-    href: post.postUrl,
-    title: post.authorName,
-    meta: oneLine(post.excerpt || post.note || "", 72),
-  }));
+  const posts = reading.posts.map((post) => {
+    const date = post.postedOn ?? "";
+    return {
+      href: post.postUrl,
+      title: post.authorName,
+      meta: oneLine(post.excerpt || post.note || "", 72),
+      date,
+      label: date ? formatThoughtDate(date) : "",
+    };
+  });
 
   const days = earlierDays.map((day) => ({
     href: `/resources/${day.date}`,
@@ -105,23 +126,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="band" id="resources">
-        <h2 className="label">Resources</h2>
-        <div className="slot">
-          <ResourceLinks items={shelf} />
-        </div>
-      </section>
-
       {reading.date ? (
-        <section className="band" id="reading">
+        <section className="band" id="posts">
           <h2 className="label">
-            <Link href={`/resources/${reading.date}`} className="date-link">
-              <time dateTime={reading.date}>{formatThoughtDate(reading.date)}</time>
+            <Link
+              href={`/resources/${reading.date}`}
+              className="label-link"
+              aria-label={`Posts for ${formatThoughtDate(reading.date)}`}
+            >
+              Posts
             </Link>
           </h2>
           <div className="slot">
             {!reading.isToday ? (
-              <p className="empty lead-in">Nothing new yet today. Showing the latest reading.</p>
+              <p className="empty lead-in">Nothing new yet today. Showing the latest posts.</p>
             ) : null}
             <PostLinks posts={posts} />
             {days.length > 0 ? (
@@ -133,11 +151,18 @@ export default async function HomePage() {
           </div>
         </section>
       ) : (
-        <section className="band" id="reading">
-          <h2 className="label">Reading</h2>
-          <p className="slot empty">Nothing filed yet. The morning reading lands around 6am PT.</p>
+        <section className="band" id="posts">
+          <h2 className="label">Posts</h2>
+          <p className="slot empty">Nothing filed yet. The morning posts land around 6am PT.</p>
         </section>
       )}
+
+      <section className="band" id="resources">
+        <h2 className="label">Resources</h2>
+        <div className="slot">
+          <ResourceLinks items={shelf} />
+        </div>
+      </section>
     </>
   );
 }

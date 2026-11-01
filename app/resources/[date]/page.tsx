@@ -40,7 +40,7 @@ export default async function ResourceDayPage({ params }: { params: Promise<{ da
 
   return (
     <section className="band">
-      <BackLink href="/#resources" />
+      <BackLink href="/#posts" />
       <h1 className="label follows">
         <time dateTime={date}>{formatThoughtDate(date)}</time>
       </h1>

@@ -335,7 +335,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   column-gap: var(--space-3);
-  align-items: baseline;
+  align-items: flex-start;
   min-height: 32px;
   padding-block: var(--space-1);
   text-decoration: none;
@@ -360,9 +360,31 @@ h1 {
   font-weight: var(--weight-medium);
 }
 
+.line-body {
+  display: flex;
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  column-gap: var(--space-3);
+  align-items: baseline;
+  min-width: 0;
+}
+
 .line-meta {
   color: var(--muted);
   min-width: 0;
+}
+
+.line-note {
+  flex-basis: 100%;
+}
+
+.label-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  border-radius: 4px;
 }
 
 .lead-in {
@@ -535,6 +557,7 @@ h1 {
   .name:hover,
   .back:hover,
   .date-link:hover,
+  .label-link:hover,
   .more-btn:hover,
   .hit:hover,
   .line-row:hover,
@@ -553,6 +576,7 @@ h1 {
   .hit:hover .work-title,
   .line-row:hover .line-text,
   .line-row:hover .line-title,
+  .label-link:hover,
   .more-btn:hover,
   .retry:hover {
     text-decoration-color: currentColor;
@@ -562,6 +586,7 @@ h1 {
 .name:active,
 .back:active,
 .date-link:active,
+.label-link:active,
 .more-btn:active,
 .hit:active,
 .line-row:active,

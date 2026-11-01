@@ -4,11 +4,13 @@ import { cache } from "react";
 
 import {
   articleLink,
+  calendarInPT,
   displayHandle,
   excerpt,
   profileUrl,
   safeHttpUrl,
   todayInPT,
+  xPostDate,
 } from "@/lib/format";
 import { getSupabase } from "@/lib/supabase";
 import type { Category, FeedDay, FeedPost, LatestReading, Resource } from "@/lib/types";
@@ -32,7 +34,6 @@ type ResourceRow = {
   tags: string[] | null;
   note: string | null;
   featured: boolean | null;
-  created_at: string;
 };
 
 type FeedRow = {
@@ -82,6 +83,7 @@ function toFeedPost(row: FeedRow): FeedPost | null {
     replies: numberOrZero(row.reply_count),
     article: articleLink(row.links),
     postedAt: row.posted_at,
+    postedOn: calendarInPT(row.posted_at),
     feedDate: row.feed_date,
   };
 }
@@ -107,8 +109,8 @@ export const getCategories = cache(async (): Promise<Category[]> => {
 export const getResources = cache(async (): Promise<Resource[]> => {
   const { data, error } = await getSupabase()
     .from("hub_resources")
-    .select("title, url, x_post_url, author_handle, category_slug, tags, note, featured, created_at")
-    .order("created_at", { ascending: true })
+    .select("title, url, x_post_url, author_handle, category_slug, tags, note, featured")
+    .order("title", { ascending: true })
     .limit(1000)
     .returns<ResourceRow[]>();
 
@@ -128,6 +130,7 @@ export const getResources = cache(async (): Promise<Resource[]> => {
         tags: (row.tags ?? []).filter((tag) => typeof tag === "string"),
         note: row.note?.trim() ?? "",
         featured: Boolean(row.featured),
+        postedOn: xPostDate(row.x_post_url) ?? xPostDate(row.url),
       },
     ];
   });
