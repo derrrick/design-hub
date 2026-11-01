@@ -79,7 +79,6 @@ export function todayInPT(now = new Date()): string {
 
 export function formatThoughtDate(iso: string): string {
   return new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
     month: "short",
     day: "numeric",
   }).format(parseDate(iso));
