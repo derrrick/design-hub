@@ -3,7 +3,7 @@ import Link from "next/link";
 import { AboutIntro } from "@/components/about-intro";
 import { DayLinks, PostLinks, ResourceLinks, ThoughtLinks } from "@/components/home-lists";
 import { Mark3D } from "@/components/mark-3d";
-import { WorkList } from "@/components/work-list";
+import { ExperienceList, WorkList } from "@/components/work-list";
 import { formatThoughtDate } from "@/lib/format";
 import { getCategories, getEarlierDays, getLatestReading, getResources } from "@/lib/hub";
 import { site } from "@/lib/site";
@@ -104,8 +104,7 @@ export default async function HomePage() {
 
       <section className="band" id="experience">
         <h2 className="label">Experience</h2>
-        <div className="slot" />
-        <WorkList items={experience} />
+        <ExperienceList items={experience} />
       </section>
 
       <section className="band" id="work">
