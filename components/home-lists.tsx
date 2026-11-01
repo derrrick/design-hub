@@ -63,7 +63,7 @@ export function ResourceLinks({ items }: { items: ResourceLink[] }) {
       <form className="tools" role="search" onSubmit={(event) => event.preventDefault()}>
         <div className="search-row">
           <label className="sr-only" htmlFor="resource-search">
-            Search resources
+            Search signals
           </label>
           <input
             id="resource-search"
@@ -95,13 +95,6 @@ export function ResourceLinks({ items }: { items: ResourceLink[] }) {
           getKey={(item) => `${item.date}:${item.href}:${item.title}`}
           render={(item) => (
             <ExternalLink href={item.href} className="line-row">
-              {item.label ? (
-                <time className="mono when" dateTime={item.date}>
-                  {item.label}
-                </time>
-              ) : (
-                <span className="when" />
-              )}
               <span className="line-body">
                 <span className="line-title">{item.title}</span>
                 {item.meta ? <span className="line-meta mono">{item.meta}</span> : null}
@@ -124,13 +117,6 @@ export function PostLinks({ posts }: { posts: PostLink[] }) {
       getKey={(post) => post.href}
       render={(post) => (
         <ExternalLink href={post.href} className="line-row">
-          {post.label ? (
-            <time className="mono when" dateTime={post.date}>
-              {post.label}
-            </time>
-          ) : (
-            <span className="when" />
-          )}
           <span className="line-body">
             <span className="line-title">{post.title}</span>
             {post.meta ? <span className="line-meta line-note">{post.meta}</span> : null}

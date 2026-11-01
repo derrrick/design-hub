@@ -83,12 +83,24 @@ export default async function HomePage() {
     };
   });
 
-  const days = earlierDays.map((day) => ({
-    href: `/resources/${day.date}`,
-    date: day.date,
-    label: formatThoughtDate(day.date),
-    line: `${day.count} ${day.count === 1 ? "post" : "posts"}`,
-  }));
+  const days = [
+    ...(reading.date
+      ? [
+          {
+            href: `/resources/${reading.date}`,
+            date: reading.date,
+            label: formatThoughtDate(reading.date),
+            line: `${reading.posts.length} ${reading.posts.length === 1 ? "post" : "posts"}`,
+          },
+        ]
+      : []),
+    ...earlierDays.map((day) => ({
+      href: `/resources/${day.date}`,
+      date: day.date,
+      label: formatThoughtDate(day.date),
+      line: `${day.count} ${day.count === 1 ? "post" : "posts"}`,
+    })),
+  ];
 
   return (
     <>
@@ -130,41 +142,31 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {reading.date ? (
-        <section className="band" id="posts">
-          <h2 className="label">
-            <Link
-              href={`/resources/${reading.date}`}
-              className="label-link"
-              aria-label={`Posts for ${formatThoughtDate(reading.date)}`}
-            >
-              Posts
-            </Link>
-          </h2>
-          <div className="slot">
-            {!reading.isToday ? (
-              <p className="empty lead-in">Nothing new yet today. Showing the latest posts.</p>
-            ) : null}
-            <PostLinks posts={posts} />
-            {days.length > 0 ? (
-              <div className="earlier">
-                <h3 className="label inline-label">Earlier</h3>
-                <DayLinks days={days} />
-              </div>
-            ) : null}
-          </div>
-        </section>
-      ) : (
-        <section className="band" id="posts">
-          <h2 className="label">Posts</h2>
-          <p className="slot empty">Nothing filed yet. The morning posts land around 6am PT.</p>
-        </section>
-      )}
-
-      <section className="band" id="resources">
-        <h2 className="label">Resources</h2>
+      <section className="band" id="signals">
+        <h2 className="label">Signals</h2>
         <div className="slot">
-          <ResourceLinks items={shelf} />
+          {reading.date ? (
+            <>
+              {!reading.isToday ? (
+                <p className="empty lead-in">
+                  Nothing new yet today. Latest is {formatThoughtDate(reading.date)}.
+                </p>
+              ) : null}
+              <PostLinks posts={posts} />
+            </>
+          ) : (
+            <p className="empty">Nothing filed yet. The morning posts land around 6am PT.</p>
+          )}
+          <div className="earlier">
+            <h3 className="label inline-label">Saved</h3>
+            <ResourceLinks items={shelf} />
+          </div>
+          {days.length > 0 ? (
+            <div className="earlier">
+              <h3 className="label inline-label">Days</h3>
+              <DayLinks days={days} />
+            </div>
+          ) : null}
         </div>
       </section>
     </>
