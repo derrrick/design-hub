@@ -3,13 +3,11 @@ import Link from "next/link";
 
 import { AboutIntro } from "@/components/about-intro";
 import { ExternalLink } from "@/components/external-link";
-import { DayLinks, PostLinks, ResourceLinks, ThoughtLinks } from "@/components/home-lists";
+import { ThoughtLinks } from "@/components/home-lists";
 import { ExperienceList, WorkList } from "@/components/work-list";
 import { formatThoughtDate } from "@/lib/format";
-import { getCategories, getEarlierDays, getLatestReading, getResources } from "@/lib/hub";
 import { site } from "@/lib/site";
 import { listThoughts, type Thought } from "@/lib/thoughts";
-import type { Resource } from "@/lib/types";
 import { experience, professional, sideProjects } from "@/lib/work";
 
 export const revalidate = 3600;
@@ -23,85 +21,19 @@ function oneLine(text: string, max: number): string {
   return `${trimmed.replace(/[.,;:]+$/, "")}…`;
 }
 
-function byBookmarkDate(a: Resource, b: Resource): number {
-  if (a.postedOn !== b.postedOn) {
-    if (!a.postedOn) return 1;
-    if (!b.postedOn) return -1;
-    return a.postedOn < b.postedOn ? 1 : -1;
-  }
-  if (a.featured !== b.featured) return a.featured ? -1 : 1;
-  return a.title.localeCompare(b.title, "en");
-}
-
 function firstLine(thought: Thought): string {
   const text = thought.paragraphs[0]?.map((span) => span.text).join("") ?? "";
   const sentence = text.match(/^[\s\S]*?[.!?](?=\s|$)/)?.[0] ?? text;
   return oneLine(sentence, 96);
 }
 
-export default async function HomePage() {
+export default function HomePage() {
   const notes = listThoughts().map((thought) => ({
     href: `/thoughts/${thought.date}`,
     date: thought.date,
     label: formatThoughtDate(thought.date),
     line: firstLine(thought),
   }));
-
-  const [categories, resources, reading, earlierDays] = await Promise.all([
-    getCategories(),
-    getResources(),
-    getLatestReading(),
-    getEarlierDays(),
-  ]);
-
-  const names = new Map(categories.map((category) => [category.slug, category.name]));
-  const shelf = resources
-    .filter((item) => item.url)
-    .sort(byBookmarkDate)
-    .map((item) => {
-      const category = names.get(item.categorySlug) ?? "";
-      const meta = [category, item.authorHandle].filter(Boolean).join(" · ");
-      const date = item.postedOn ?? "";
-      const label = date ? formatThoughtDate(date) : "";
-      return {
-        href: item.url,
-        title: item.title,
-        meta,
-        date,
-        label,
-        haystack: [item.title, meta, item.note, item.tags.join(" "), date, label].join(" ").toLowerCase(),
-      };
-    });
-
-  const posts = reading.posts.map((post) => {
-    const date = post.postedOn ?? "";
-    return {
-      href: post.postUrl,
-      title: post.authorName,
-      meta: oneLine(post.excerpt || post.note || "", 72),
-      date,
-      label: date ? formatThoughtDate(date) : "",
-    };
-  });
-
-  const days = [
-    ...(reading.date
-      ? [
-          {
-            href: `/resources/${reading.date}`,
-            date: reading.date,
-            label: formatThoughtDate(reading.date),
-            line: `${reading.posts.length} ${reading.posts.length === 1 ? "post" : "posts"}`,
-          },
-        ]
-      : []),
-    ...earlierDays.map((day) => ({
-      href: `/resources/${day.date}`,
-      date: day.date,
-      label: formatThoughtDate(day.date),
-      line: `${day.count} ${day.count === 1 ? "post" : "posts"}`,
-    })),
-  ];
 
   return (
     <div className="split">
@@ -159,34 +91,6 @@ export default async function HomePage() {
             <h2 className="label">Thoughts</h2>
             <div className="slot">
               <ThoughtLinks notes={notes} />
-            </div>
-          </section>
-
-          <section className="band" id="trends">
-            <h2 className="label">Trends</h2>
-            <div className="slot">
-              {reading.date ? (
-                <>
-                  {!reading.isToday ? (
-                    <p className="empty lead-in">
-                      Nothing new yet today. Latest is {formatThoughtDate(reading.date)}.
-                    </p>
-                  ) : null}
-                  <PostLinks posts={posts} />
-                </>
-              ) : (
-                <p className="empty">Nothing filed yet. The morning posts land around 6am PT.</p>
-              )}
-              <div className="earlier">
-                <h3 className="label inline-label">Saved</h3>
-                <ResourceLinks items={shelf} />
-              </div>
-              {days.length > 0 ? (
-                <div className="earlier">
-                  <h3 className="label inline-label">Days</h3>
-                  <DayLinks days={days} />
-                </div>
-              ) : null}
             </div>
           </section>
         </div>
