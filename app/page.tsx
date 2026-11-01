@@ -1,8 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { AboutIntro } from "@/components/about-intro";
 import { DayLinks, PostLinks, ResourceLinks, ThoughtLinks } from "@/components/home-lists";
-import { Mark3D } from "@/components/mark-3d";
 import { ExperienceList, WorkList } from "@/components/work-list";
 import { formatThoughtDate } from "@/lib/format";
 import { getCategories, getEarlierDays, getLatestReading, getResources } from "@/lib/hub";
@@ -93,7 +93,16 @@ export default async function HomePage() {
   return (
     <>
       <section className="hero">
-        <Mark3D />
+        <div className="portrait">
+          <Image
+            src="/derrick.jpg"
+            alt="Derrick Schippert"
+            width={64}
+            height={64}
+            sizes="64px"
+            priority
+          />
+        </div>
         <h1>
           <Link className="name" href="/">
             {site.name}
