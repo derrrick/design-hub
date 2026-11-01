@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { AboutIntro } from "@/components/about-intro";
+import { ExternalLink } from "@/components/external-link";
 import { DayLinks, PostLinks, ResourceLinks, ThoughtLinks } from "@/components/home-lists";
 import { ExperienceList, WorkList } from "@/components/work-list";
 import { formatThoughtDate } from "@/lib/format";
@@ -103,72 +104,93 @@ export default async function HomePage() {
   ];
 
   return (
-    <>
-      <section className="hero">
-        <div className="portrait">
-          <Image
-            src="/derrick.jpg"
-            alt="Derrick Schippert"
-            width={64}
-            height={64}
-            sizes="64px"
-            priority
-          />
-        </div>
-        <h1>
-          <Link className="name" href="/">
-            {site.name}
-          </Link>
-        </h1>
-        <AboutIntro />
-      </section>
-
-      <section className="band" id="experience">
-        <h2 className="label">Experience</h2>
-        <ExperienceList items={experience} />
-      </section>
-
-      <section className="band" id="work">
-        <h2 className="label">Recent work</h2>
-        <div className="slot" />
-        <WorkList items={professional} />
-        <WorkList heading="Side projects" items={sideProjects} />
-      </section>
-
-      <section className="band" id="thoughts">
-        <h2 className="label">Thoughts</h2>
-        <div className="slot">
-          <ThoughtLinks notes={notes} />
-        </div>
-      </section>
-
-      <section className="band" id="trends">
-        <h2 className="label">Trends</h2>
-        <div className="slot">
-          {reading.date ? (
-            <>
-              {!reading.isToday ? (
-                <p className="empty lead-in">
-                  Nothing new yet today. Latest is {formatThoughtDate(reading.date)}.
-                </p>
-              ) : null}
-              <PostLinks posts={posts} />
-            </>
-          ) : (
-            <p className="empty">Nothing filed yet. The morning posts land around 6am PT.</p>
-          )}
-          <div className="earlier">
-            <h3 className="label inline-label">Saved</h3>
-            <ResourceLinks items={shelf} />
-          </div>
-          {days.length > 0 ? (
-            <div className="earlier">
-              <h3 className="label inline-label">Days</h3>
-              <DayLinks days={days} />
+    <div className="split">
+      <div className="intro-pane">
+        <div className="intro-body">
+          <section className="hero">
+            <div className="portrait">
+              <Image
+                src="/derrick.jpg"
+                alt="Derrick Schippert"
+                width={64}
+                height={64}
+                sizes="64px"
+                priority
+              />
             </div>
-          ) : null}
+            <h1>
+              <Link className="name" href="/">
+                {site.name}
+              </Link>
+            </h1>
+            <AboutIntro />
+          </section>
+
+          <section className="band" id="experience">
+            <h2 className="label">Experience</h2>
+            <ExperienceList items={experience} />
+          </section>
         </div>
-      </section>
-    </>
+        <footer className="pane-foot">
+          <p>
+            <a className="foot-link" href={`mailto:${site.email}`}>
+              Email
+            </a>
+            <span className="foot-sep" aria-hidden="true">
+              |
+            </span>
+            <ExternalLink href={site.linkedin} className="foot-link">
+              LinkedIn
+            </ExternalLink>
+          </p>
+          <p>©2026</p>
+        </footer>
+      </div>
+      <div className="work-pane">
+        <div className="sheet">
+          <section className="band" id="work">
+            <h2 className="label">Recent work</h2>
+            <div className="slot" />
+            <WorkList items={professional} />
+            <WorkList heading="Side projects" items={sideProjects} />
+          </section>
+
+          <section className="band" id="thoughts">
+            <h2 className="label">Thoughts</h2>
+            <div className="slot">
+              <ThoughtLinks notes={notes} />
+            </div>
+          </section>
+
+          <section className="band" id="trends">
+            <h2 className="label">Trends</h2>
+            <div className="slot">
+              {reading.date ? (
+                <>
+                  {!reading.isToday ? (
+                    <p className="empty lead-in">
+                      Nothing new yet today. Latest is {formatThoughtDate(reading.date)}.
+                    </p>
+                  ) : null}
+                  <PostLinks posts={posts} />
+                </>
+              ) : (
+                <p className="empty">Nothing filed yet. The morning posts land around 6am PT.</p>
+              )}
+              <div className="earlier">
+                <h3 className="label inline-label">Saved</h3>
+                <ResourceLinks items={shelf} />
+              </div>
+              {days.length > 0 ? (
+                <div className="earlier">
+                  <h3 className="label inline-label">Days</h3>
+                  <DayLinks days={days} />
+                </div>
+              ) : null}
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
   );
 }

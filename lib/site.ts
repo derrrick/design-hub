@@ -4,6 +4,8 @@ export const site = {
   location: "Based in Bay Area",
   description: "Design thoughts, a reading shelf, and selected work.",
   personalSite: "https://dschippert.com",
+  email: "dschippe@gmail.com",
+  linkedin: "https://www.linkedin.com/in/derrickschippert",
 } as const;
 
 export function hubUrl(): string {
