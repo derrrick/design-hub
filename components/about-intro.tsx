@@ -1,28 +1,22 @@
-import { ExternalLink } from "@/components/external-link";
-import { site } from "@/lib/site";
-import { sideProjects } from "@/lib/work";
-
-function ProjectLink({ title }: { title: string }) {
-  const project = sideProjects.find((item) => item.title === title);
-  if (!project) return title;
-  return (
-    <ExternalLink href={project.href} className="text-link">
-      {title}
-    </ExternalLink>
-  );
-}
-
 export function AboutIntro() {
   return (
     <>
-      <p className="role mono">{site.title}</p>
-      <p className="where mono">{site.location}</p>
-      <p className="lede">
-        Product designer and builder. Eight years at Square working on AI, help, and pricing systems
-        across the seller journey. Before that, Google, Salesforce, and UserTesting. I also design
-        and build my own software: <ProjectLink title="Punch" />, <ProjectLink title="Artifact" />,{" "}
-        <ProjectLink title="HPW" />, and <ProjectLink title="Vector" />.
-      </p>
+      <p className="role mono">Design Engineer based in the Bay Area</p>
+      <div className="bio">
+        <p>
+          Hi, I&apos;m Derrick, a Bay Area-based designer and software engineer with 15+ years of
+          experience building digital products, primarily in complex enterprise environments.
+        </p>
+        <p>
+          Currently, I&apos;m taking a sabbatical after eight years at Square (Block), where I worked
+          across the seller journey, including AI, sales and onboarding, and scaling support. Before
+          that, I worked for Google, Salesforce, and UserTesting.
+        </p>
+        <p>
+          Outside of work, I enjoy spending time with my family, watching Detroit sports, photography,
+          golfing, and working on side projects.
+        </p>
+      </div>
     </>
   );
 }

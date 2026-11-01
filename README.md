@@ -1,6 +1,6 @@
 # Design hub
 
-A quiet one-page reading site for Derrick Schippert. The home page opens with a 3D mark, then the intro, Work, and short lists for Thoughts, Posts, and Resources. The mark uses the page ink, so it is dark on the light theme and light on the dark theme. Each list shows a batch and a More button for the next batch. Section names sit in a left label column. A dated note lives at `/thoughts/[date]`, and a day’s posts at `/resources/[date]`, each with a back link home.
+A quiet one-page reading site for Derrick Schippert. The home page opens with a small 3D line portrait, then the intro, Work, and short lists for Thoughts, Posts, and Resources. The portrait uses the page ink, so it is dark on the light theme and light on the dark theme. Each list shows a batch and a More button for the next batch. Section names sit in a left label column. A dated note lives at `/thoughts/[date]`, and a day’s posts at `/resources/[date]`, each with a back link home.
 
 Thoughts on the home page are date plus the first line, linking to the full note. A new note is published Monday at 7:00am Pacific from the previous seven days of posts and a web search. Posts are that morning’s X posts: the date the person posted, their name, and a short line. Resources are the sites and tools saved from X. Each one is dated from the bookmarked post (the status id, in Pacific time), newest first, with the category and who shared it. Featured items lead only within the same day. A quiet search stays on Resources. The import time is not the post date.
 
