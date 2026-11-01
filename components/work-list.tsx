@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 import { ExternalLink } from "@/components/external-link";
 import type { WorkItem } from "@/lib/work";
 
@@ -33,14 +35,20 @@ export function WorkList({
       <h3 className={`label ${gap}`}>{heading}</h3>
       <div className={`slot ${gap}`} />
       {items.map((item) => (
-        <WorkRow key={item.href ?? item.title} item={item} />
+        <Fragment key={item.href ?? item.title}>
+          <WorkRow item={item} />
+          {item.children?.map((child) => (
+            <WorkRow key={child.href ?? child.title} item={child} />
+          ))}
+        </Fragment>
       ))}
     </div>
   );
 }
 
 function WorkRow({ item }: { item: WorkItem }) {
-  const years = item.years ? <span className="label mono">{item.years}</span> : <span className="label" />;
+  const mark = item.mark ?? item.years;
+  const years = mark ? <span className="label mono">{mark}</span> : <span className="label" />;
   const note = <span className="note">{item.note}</span>;
 
   if (item.store && item.href) {
