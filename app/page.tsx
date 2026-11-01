@@ -142,8 +142,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="band" id="signals">
-        <h2 className="label">Signals</h2>
+      <section className="band" id="trends">
+        <h2 className="label">Trends</h2>
         <div className="slot">
           {reading.date ? (
             <>

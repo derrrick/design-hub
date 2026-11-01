@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ date: string }>;
 }): Promise<Metadata> {
   const { date } = await params;
-  if (!isIsoDate(date)) return { title: "Signals" };
+  if (!isIsoDate(date)) return { title: "Trends" };
   return {
     title: formatThoughtDate(date),
     description: `Product design reading for ${formatThoughtDate(date)}.`,
@@ -40,7 +40,7 @@ export default async function ResourceDayPage({ params }: { params: Promise<{ da
 
   return (
     <section className="band">
-      <BackLink href="/#signals" />
+      <BackLink href="/#trends" />
       <h1 className="label follows">
         <time dateTime={date}>{formatThoughtDate(date)}</time>
       </h1>

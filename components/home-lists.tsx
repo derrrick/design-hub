@@ -63,7 +63,7 @@ export function ResourceLinks({ items }: { items: ResourceLink[] }) {
       <form className="tools" role="search" onSubmit={(event) => event.preventDefault()}>
         <div className="search-row">
           <label className="sr-only" htmlFor="resource-search">
-            Search signals
+            Search trends
           </label>
           <input
             id="resource-search"
