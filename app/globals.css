@@ -241,14 +241,14 @@ h1 {
 }
 
 .mark {
-  width: 98px;
-  height: 88px;
+  width: 137px;
+  height: 123px;
   margin-bottom: var(--space-8);
 }
 
 @media (min-width: 861px) {
   .mark {
-    margin-left: calc(var(--space-5) * -1);
+    margin-left: calc(var(--space-6) * -1);
   }
 }
 

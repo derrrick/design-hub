@@ -1,7 +1,9 @@
+import { site } from "@/lib/site";
+
 export function AboutIntro() {
   return (
     <>
-      <p className="role mono">Design Engineer based in the Bay Area</p>
+      <p className="role mono">{site.title}</p>
       <div className="bio">
         <p>
           Hi, I&apos;m Derrick, a Bay Area-based designer and software engineer with 15+ years of
@@ -9,7 +11,7 @@ export function AboutIntro() {
         </p>
         <p>
           Currently, I&apos;m taking a sabbatical after eight years at Square (Block), where I worked
-          across the seller journey, including AI, sales and onboarding, and scaling support. Before
+          across the seller journey on AI, sales and onboarding, and scaling support. Before
           that, I worked for Google, Salesforce, and UserTesting.
         </p>
         <p>
