@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-24",
+  "paragraphs": [
+    [
+      {
+        "text": "Saved time is not the work."
+      }
+    ],
+    [
+      {
+        "text": "Maria Rosala",
+        "href": "https://www.nngroup.com/articles/ai-in-ux-survey-26/"
+      },
+      {
+        "text": " and "
+      },
+      {
+        "text": "Rachel Banawa",
+        "href": "https://www.nngroup.com/articles/ai-in-ux-survey-26/"
+      },
+      {
+        "text": " surveyed 521 UX practitioners. Access is nearly universal and the tasks get faster, but the average feeling is 3.57 out of 5 and most written comments were negative. People use it most for desk work and least for work with users."
+      }
+    ],
+    [
+      {
+        "text": "Luke Wroblewski",
+        "href": "https://www.lukew.com/ff/2168/ask-lukew-instant-content-indexing"
+      },
+      {
+        "text": " pointed at the empty box. He set his site to answer before anyone asks, because the hard part of an AI product is knowing what it can do. A faster draft does not explain itself."
+      }
+    ],
+    [
+      {
+        "text": "Sean Goedecke",
+        "href": "https://www.seangoedecke.com/software-is-slow-because-of-bad-design-not-slow-languages/"
+      },
+      {
+        "text": " separates speed from the language. Most of the wait is the database, the disk, or another service. A faster language does not remove that wait."
+      }
+    ],
+    [
+      {
+        "text": "Spend the saved time with a user."
+      }
+    ]
+  ]
+}
