@@ -10,14 +10,14 @@ export type WorkItem = {
 // Square’s years are the Block (Square) dates on /resume. The side projects publish no years.
 // Titles and years are the public resume at dschippert.com/resume.
 export const experience: WorkItem[] = [
-  { years: "2019–2026", title: "Block (Square)", note: "Staff Product Designer" },
-  { years: "2018–2019", title: "Dockyard", note: "Sr. Product Designer" },
+  { years: "2019 – 2026", title: "Block (Square)", note: "Staff Product Designer" },
+  { years: "2018 – 2019", title: "Dockyard", note: "Sr. Product Designer" },
   { years: "2018", title: "Google", note: "UX Designer" },
   { years: "2017", title: "UserTesting", note: "Sr. Product Designer" },
-  { years: "2015–2017", title: "GoDaddy", note: "Sr. Product Designer" },
-  { years: "2014–2015", title: "RetailMeNot", note: "Product Designer" },
-  { years: "2013–2014", title: "Salesforce", note: "UI & UX Designer" },
-  { years: "2011–2013", title: "LivingSocial", note: "UX Designer" },
+  { years: "2015 – 2017", title: "GoDaddy", note: "Sr. Product Designer" },
+  { years: "2014 – 2015", title: "RetailMeNot", note: "Product Designer" },
+  { years: "2013 – 2014", title: "Salesforce", note: "UI & UX Designer" },
+  { years: "2011 – 2013", title: "LivingSocial", note: "UX Designer" },
 ];
 
 export const professional: WorkItem[] = [

@@ -469,8 +469,37 @@ h1 {
   margin-top: 0;
 }
 
-.open > .hit:first-child {
-  margin-top: var(--space-5);
+.roles {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, auto);
+  grid-auto-flow: column;
+  column-gap: var(--space-7);
+  row-gap: var(--space-6);
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.roles li,
+.role-line {
+  display: flex;
+  min-width: 0;
+}
+
+.roles li {
+  flex-direction: column;
+}
+
+.role-line {
+  flex-wrap: wrap;
+  column-gap: var(--space-2);
+  align-items: baseline;
+}
+
+.roles .note {
+  margin-top: 0;
 }
 
 .who {
@@ -629,6 +658,12 @@ input:-webkit-autofill {
 
   .hit {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .roles {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    grid-auto-flow: row;
   }
 
   .search-row input {
