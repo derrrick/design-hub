@@ -4,6 +4,8 @@ A quiet personal site for Derrick Schippert, built on one 540px reading column w
 
 The home page is: intro, Experience (two columns, from `experience` in `lib/work.ts`), side projects, the four latest Notes, Connect, and a footer with local Pacific time. The five Square case studies are live at `/work/[slug]` but are not linked from the home page, so share them by link; their copy, stats and images are data in `lib/work.ts`, with images in `public/images/work/` (a `dark` image swaps in with the theme). Notes live at `/thoughts/[date]`; `/thoughts` redirects to the Notes section. The first paragraph of each note is its title. The résumé is `public/derrick-schippert-resume.pdf`.
 
+The first dschippert.com lives on at `v1.dschippert.com` (repo `derrrick/dschippert`; snapshot on branch `archive/v1-mac-2026-11-03`, tag `v1-github-main`). `next.config.ts` redirects its old URLs: `/projects/*` to the matching `/work/*` page, `/square` home, `/resume` to the PDF, and the interview decks (`/slides*`, `/login`) to v1.
+
 Notes on the home page are the first line plus the date, linking to the full note. A new note is published Monday at 7:00am Pacific from the previous seven days of posts and saved links, plus a web search. Those posts and links are not listed on the page. The import time is not the post date.
 
 `/feed.xml` is still the RSS feed. It is not linked from the page. `/work`, `/resources`, `/today`, and `/archive` redirect to the matching section on the home page. `/resources`, `/today`, and `/archive` land on Thoughts.
