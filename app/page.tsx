@@ -21,22 +21,28 @@ export default function HomePage() {
       <Image className="avatar appear" src="/derrick.jpg" alt="Derrick Schippert" width={40} height={40} priority />
 
       <section className="stack appear" aria-label="About" style={{ ["--d" as string]: "130ms" }}>
-        <p>Hello,</p>
-        <p>I’m Derrick, I design and build software, mostly within enterprise systems.</p>
+        <p className="strong">I’m Derrick, a product designer who builds what he designs.</p>
         <p>
-          I have 15+ years experience. Most recently, I was at{" "}
-          <ExternalLink href="https://squareup.com/us/en">Square</ExternalLink>, working on AI, sales, onboarding, and
-          help across the seller journey. Before that, <ExternalLink href="https://about.google/">Google</ExternalLink>,{" "}
+          For 15+ years I’ve worked on enterprise software. Most recently, at{" "}
+          <ExternalLink href="https://squareup.com/us/en">Square</ExternalLink>, I designed across the seller journey:
+          Square AI, sales, onboarding and support. Before that,{" "}
+          <ExternalLink href="https://about.google/">Google</ExternalLink>,{" "}
           <ExternalLink href="https://www.salesforce.com/">Salesforce</ExternalLink>,{" "}
           <ExternalLink href="https://www.godaddy.com/">GoDaddy</ExternalLink> and{" "}
-          <ExternalLink href="https://www.usertesting.com/">UserTesting</ExternalLink>. Here’s my{" "}
+          <ExternalLink href="https://www.usertesting.com/">UserTesting</ExternalLink>.
+        </p>
+        <p>
+          I care about craft: type, grids, motion and the details most people never notice. And I prototype in code, so
+          ideas meet real data and real people before they ship. Here’s my{" "}
           <a href="/derrick-schippert-resume.pdf" download="Derrick-Schippert-Resume.pdf">
             resume
           </a>
           .
         </p>
-        <p>Currently on sabbatical, building fun side projects and spending time with family.</p>
-        <p>Off the clock: Detroit sports, photography, golf, and F1.</p>
+        <p>
+          Away from the screen, I’m happiest with my family. Otherwise, I’m out with a camera, on a golf course, or
+          watching Detroit sports and F1.
+        </p>
       </section>
 
       <section id="experience" className="section appear" aria-labelledby="exp-h" style={{ ["--d" as string]: "200ms" }}>
