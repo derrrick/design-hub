@@ -80,7 +80,7 @@ export default function HomePage() {
 
       <section id="thoughts" className="section appear" aria-labelledby="notes-h" style={{ ["--d" as string]: "340ms" }}>
         <h2 id="notes-h" className="label">
-          Notes
+          Thoughts
         </h2>
         {notes.length === 0 ? (
           <p className="empty">Nothing published yet. The note lands Monday at 7am PT.</p>
@@ -94,8 +94,9 @@ export default function HomePage() {
           Connect
         </h2>
         <p>
-          Hiring, building something hard, or just want to talk shop? Email{" "}
-          <a href={`mailto:${site.email}`}>{site.email}</a>. I’m also on{" "}
+          Hiring, building something hard, or just want to talk shop?
+          <br />
+          Email <a href={`mailto:${site.email}`}>{site.email}</a>. I’m also on{" "}
           <ExternalLink href={site.linkedin}>LinkedIn</ExternalLink>.
         </p>
       </section>
