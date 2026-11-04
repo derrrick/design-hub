@@ -331,6 +331,15 @@ main:focus {
   border-bottom: 1px solid var(--line);
 }
 
+/* Home lists: rules only between rows, none under the heading or after the last row. */
+.rows--between .row:first-child {
+  border-top: 0;
+}
+
+.rows--between .row:last-child {
+  border-bottom: 0;
+}
+
 .row--index {
   grid-template-columns: 32px minmax(0, 1fr) auto;
   gap: 0 12px;

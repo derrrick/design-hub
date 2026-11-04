@@ -65,7 +65,7 @@ export default function HomePage() {
         <h2 id="side-h" className="label">
           Side projects
         </h2>
-        <div className="rows">
+        <div className="rows rows--between">
           {sideProjects.map((project) => (
             <ExternalLink key={project.href} href={project.href} className="row">
               <span>
@@ -85,7 +85,7 @@ export default function HomePage() {
         {notes.length === 0 ? (
           <p className="empty">Nothing published yet. The note lands Monday at 7am PT.</p>
         ) : (
-          <NoteRows thoughts={notes} />
+          <NoteRows thoughts={notes} between />
         )}
       </section>
 
