@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
 import type { ReactNode } from "react";
 
+import { SoundLayer } from "@/components/sound-layer";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { hubUrl, site } from "@/lib/site";
 
@@ -84,10 +85,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <a className="skip" href="#content">
           Skip to content
         </a>
-        <ThemeToggle />
-        <main id="content" tabIndex={-1}>
-          {children}
-        </main>
+        <SoundLayer>
+          <ThemeToggle />
+          <main id="content" tabIndex={-1}>
+            {children}
+          </main>
+        </SoundLayer>
       </body>
     </html>
   );

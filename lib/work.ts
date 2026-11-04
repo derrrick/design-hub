@@ -530,3 +530,17 @@ export const sideProjects: SideProject[] = [
   { title: "Vector", href: "https://www.vectordrop.app/", note: "drop a raster, get a clean SVG", platform: "macOS" },
   { title: "HPW", href: "https://healthpricewatch.com/", note: "price transparency compliance", platform: "SaaS, Web" },
 ];
+
+export type Role = { company: string; title: string; years: string };
+
+// Order matches the résumé: read down the left column, then the right.
+export const experience: Role[] = [
+  { company: "Block (Square)", title: "Staff Product Designer", years: "2019–2026" },
+  { company: "Dockyard", title: "Sr. Product Designer", years: "2018–2019" },
+  { company: "Google", title: "UX Designer", years: "2018" },
+  { company: "UserTesting", title: "Sr. Product Designer", years: "2017" },
+  { company: "GoDaddy", title: "Sr. Product Designer", years: "2015–2017" },
+  { company: "RetailMeNot", title: "Product Designer", years: "2014–2015" },
+  { company: "Salesforce", title: "UI & UX Designer", years: "2013–2014" },
+  { company: "LivingSocial", title: "UX Designer", years: "2011–2013" },
+];

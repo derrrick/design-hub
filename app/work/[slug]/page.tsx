@@ -124,7 +124,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   return (
     <div className="spread">
       <div className="measure stack stack--loose">
-        <BackLink href="/#work" />
+        <BackLink href="/" />
 
         <header className="stack appear" style={{ ["--d" as string]: "60ms" }}>
           <div className="section-head mono muted">

@@ -1,33 +1,35 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import { SiteFooter } from "@/components/back-link";
 import { ExternalLink } from "@/components/external-link";
 import { LocalTime } from "@/components/local-time";
-import { formatThoughtDate } from "@/lib/format";
+import { NoteRows } from "@/components/note-rows";
 import { site } from "@/lib/site";
-import { headline, listThoughts } from "@/lib/thoughts";
-import { caseStudies, sideProjects } from "@/lib/work";
+import { listThoughts } from "@/lib/thoughts";
+import { experience, sideProjects } from "@/lib/work";
 
 export const revalidate = 3600;
 
 const HOME_NOTES = 4;
 
+// Case studies stay live at /work/[slug]; they are not linked from here.
 export default function HomePage() {
-  const thoughts = listThoughts();
-  const notes = thoughts.slice(0, HOME_NOTES);
+  const notes = listThoughts().slice(0, HOME_NOTES);
 
   return (
     <div className="page">
       <Image className="avatar appear" src="/derrick.jpg" alt="Derrick Schippert" width={40} height={40} priority />
 
       <section className="stack appear" aria-label="About" style={{ ["--d" as string]: "130ms" }}>
-        <p>Hello there,</p>
-        <p>I design and build software, mostly within enterprise systems.</p>
+        <p>Hello,</p>
+        <p>I’m Derrick, I design and build software, mostly within enterprise systems.</p>
         <p>
-          I have 15+ years experience. Most recently, I was at <Link href="/work/unified-ai-surfaces">Square</Link>,
-          working on AI, onboarding, and help across the seller journey. Before that, Google, Salesforce, GoDaddy and
-          UserTesting. Here’s my{" "}
+          I have 15+ years experience. Most recently, I was at{" "}
+          <ExternalLink href="https://squareup.com/us/en">Square</ExternalLink>, working on AI, sales, onboarding, and
+          help across the seller journey. Before that, <ExternalLink href="https://about.google/">Google</ExternalLink>,{" "}
+          <ExternalLink href="https://www.salesforce.com/">Salesforce</ExternalLink>,{" "}
+          <ExternalLink href="https://www.godaddy.com/">GoDaddy</ExternalLink> and{" "}
+          <ExternalLink href="https://www.usertesting.com/">UserTesting</ExternalLink>. Here’s my{" "}
           <a href="/derrick-schippert-resume.pdf" download="Derrick-Schippert-Resume.pdf">
             resume
           </a>
@@ -37,19 +39,20 @@ export default function HomePage() {
         <p>Off the clock: Detroit sports, photography, golf, and F1.</p>
       </section>
 
-      <section id="work" className="section appear" aria-labelledby="work-h" style={{ ["--d" as string]: "200ms" }}>
-        <h2 id="work-h" className="label">
-          Square
+      <section id="experience" className="section appear" aria-labelledby="exp-h" style={{ ["--d" as string]: "200ms" }}>
+        <h2 id="exp-h" className="label">
+          Experience
         </h2>
-        <div className="rows">
-          {caseStudies.map((study, index) => (
-            <Link key={study.slug} href={`/work/${study.slug}`} className="row row--index">
-              <span className="mono muted">{String(index + 1).padStart(2, "0")}</span>
-              <span>{study.title}</span>
-              <span className="mono muted">{study.tag}</span>
-            </Link>
+        <ul className="roles">
+          {experience.map((role) => (
+            <li key={role.company}>
+              <span>
+                <span className="role-company">{role.company}</span> <span className="mono muted">{role.years}</span>
+              </span>
+              <span className="muted">{role.title}</span>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       <section className="section appear" aria-labelledby="side-h" style={{ ["--d" as string]: "270ms" }}>
@@ -76,22 +79,8 @@ export default function HomePage() {
         {notes.length === 0 ? (
           <p className="empty">Nothing published yet. The note lands Monday at 7am PT.</p>
         ) : (
-          <div className="rows">
-            {notes.map((thought) => (
-              <Link key={thought.date} href={`/thoughts/${thought.date}`} className="row">
-                <span>{headline(thought)}</span>
-                <time className="mono muted" dateTime={thought.date}>
-                  {formatThoughtDate(thought.date)}
-                </time>
-              </Link>
-            ))}
-          </div>
+          <NoteRows thoughts={notes} />
         )}
-        {thoughts.length > 0 ? (
-          <Link href="/thoughts" className="mono more">
-            More
-          </Link>
-        ) : null}
       </section>
 
       <section className="stack appear" aria-labelledby="connect-h" style={{ ["--d" as string]: "410ms" }}>
@@ -101,10 +90,7 @@ export default function HomePage() {
         <p>
           Hiring, building something hard, or just want to talk shop? Email{" "}
           <a href={`mailto:${site.email}`}>{site.email}</a>. I’m also on{" "}
-          <ExternalLink href={site.linkedin} className="inline-link">
-            LinkedIn
-          </ExternalLink>
-          .
+          <ExternalLink href={site.linkedin}>LinkedIn</ExternalLink>.
         </p>
       </section>
 

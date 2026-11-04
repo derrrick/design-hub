@@ -192,6 +192,40 @@ main:focus {
   color: var(--strong);
 }
 
+/* The filled half of the square flips corners with the theme. */
+.toggle svg {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .toggle svg {
+    transform: rotate(180deg);
+  }
+}
+
+:root[data-theme="dark"] .toggle svg {
+  transform: rotate(180deg);
+}
+
+/* Experience: two columns read top to bottom, like the résumé; one column on phones. */
+.roles {
+  margin-top: 8px;
+  columns: 2 220px;
+  column-gap: 24px;
+}
+
+.roles li {
+  break-inside: avoid;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+.role-company {
+  color: var(--strong);
+  font-weight: 500;
+}
+
 /* Layout */
 
 .page {
@@ -586,7 +620,8 @@ main:focus {
     animation: none;
   }
   body,
-  .row {
+  .row,
+  .toggle svg {
     transition: none;
   }
 }

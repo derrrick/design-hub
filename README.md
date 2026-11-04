@@ -2,7 +2,9 @@
 
 A quiet personal site for Derrick Schippert, built on one 540px reading column with product shots breaking wider (up to 1080px). Inter 14/22 with Geist Mono for dates and numbers; light and dark follow the system, and the toggle in the corner overrides it (saved in `localStorage` as `theme`).
 
-The home page is: intro, the five Square case studies, side projects, the four latest Notes, Connect, and a footer with local Pacific time. Case studies live at `/work/[slug]`; their copy, stats and images are data in `lib/work.ts`, with images in `public/images/work/` (a `dark` image swaps in with the theme). Notes live at `/thoughts/[date]`, with an archive at `/thoughts`. The first paragraph of each note is its title. The résumé is `public/derrick-schippert-resume.pdf`.
+The home page is: intro, Experience (two columns, from `experience` in `lib/work.ts`), side projects, the four latest Notes, Connect, and a footer with local Pacific time. The five Square case studies are live at `/work/[slug]` but are not linked from the home page, so share them by link; their copy, stats and images are data in `lib/work.ts`, with images in `public/images/work/` (a `dark` image swaps in with the theme). Notes live at `/thoughts/[date]`; `/thoughts` redirects to the Notes section. The first paragraph of each note is its title. The résumé is `public/derrick-schippert-resume.pdf`.
+
+Links and buttons make a quiet hover tick and click tap, from a vendored copy of [sensory-ui](https://github.com/shadcn-labs/sensory-ui) in `components/sensory-ui/` (MIT). The wiring, pack (`minimal`) and volume live in `components/sound-layer.tsx`. Sound is off for visitors who prefer reduced motion, and browsers keep it silent until the first click or key press on the page.
 
 Notes on the home page are the first line plus the date, linking to the full note. A new note is published Monday at 7:00am Pacific from the previous seven days of posts and saved links, plus a web search. Those posts and links are not listed on the page. The import time is not the post date.
 
