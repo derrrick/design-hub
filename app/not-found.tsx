@@ -1,17 +1,14 @@
-import Link from "next/link";
+import { BackLink, SiteFooter } from "@/components/back-link";
 
 export default function NotFound() {
   return (
-    <section className="band">
-      <p className="label">
-        <Link href="/" className="back">
-          Back
-        </Link>
-      </p>
-      <div className="slot">
-        <h1>This page isn’t here.</h1>
+    <div className="page page--tight">
+      <BackLink href="/" />
+      <section className="stack">
+        <h1 className="title">This page isn’t here.</h1>
         <p className="empty">The link may have changed.</p>
-      </div>
-    </section>
+      </section>
+      <SiteFooter />
+    </div>
   );
 }

@@ -2,19 +2,17 @@
 
 export default function Error({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
-    <section className="band">
-      <p className="label">
-        <a href="/" className="back">
-          Back
-        </a>
-      </p>
-      <div className="slot">
-        <h1>The shelf didn’t load.</h1>
-        <p className="empty">Something went wrong reading the list.</p>
+    <div className="page page--tight">
+      <a href="/" className="back">
+        Back
+      </a>
+      <section className="stack">
+        <h1 className="title">This page didn’t load.</h1>
+        <p className="empty">Something went wrong. It’s usually temporary.</p>
         <button type="button" className="retry" onClick={() => reset()}>
           Try again
         </button>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

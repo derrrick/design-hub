@@ -2,7 +2,7 @@ export const site = {
   name: "Derrick Schippert",
   title: "Design Engineer",
   location: "Based in Bay Area",
-  description: "Design thoughts, a reading shelf, and selected work.",
+  description: "Designer and engineer. Selected work from Square, side projects, and a weekly note on design.",
   personalSite: "https://dschippert.com",
   email: "dschippe@gmail.com",
   linkedin: "https://www.linkedin.com/in/derrickschippert",

@@ -1,100 +1,116 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { AboutIntro } from "@/components/about-intro";
+import { SiteFooter } from "@/components/back-link";
 import { ExternalLink } from "@/components/external-link";
-import { ThoughtLinks } from "@/components/home-lists";
-import { ExperienceList, WorkList } from "@/components/work-list";
+import { LocalTime } from "@/components/local-time";
 import { formatThoughtDate } from "@/lib/format";
 import { site } from "@/lib/site";
-import { listThoughts, type Thought } from "@/lib/thoughts";
-import { experience, professional, sideProjects } from "@/lib/work";
+import { headline, listThoughts } from "@/lib/thoughts";
+import { caseStudies, sideProjects } from "@/lib/work";
 
 export const revalidate = 3600;
 
-function oneLine(text: string, max: number): string {
-  const clean = text.replace(/\s+/g, " ").trim();
-  if (clean.length <= max) return clean;
-  const cut = clean.slice(0, max);
-  const lastSpace = cut.lastIndexOf(" ");
-  const trimmed = (lastSpace > 40 ? cut.slice(0, lastSpace) : cut).trimEnd();
-  return `${trimmed.replace(/[.,;:]+$/, "")}…`;
-}
-
-function firstLine(thought: Thought): string {
-  const text = thought.paragraphs[0]?.map((span) => span.text).join("") ?? "";
-  const sentence = text.match(/^[\s\S]*?[.!?](?=\s|$)/)?.[0] ?? text;
-  return oneLine(sentence, 96);
-}
+const HOME_NOTES = 4;
 
 export default function HomePage() {
-  const notes = listThoughts().map((thought) => ({
-    href: `/thoughts/${thought.date}`,
-    date: thought.date,
-    label: formatThoughtDate(thought.date),
-    line: firstLine(thought),
-  }));
+  const thoughts = listThoughts();
+  const notes = thoughts.slice(0, HOME_NOTES);
 
   return (
-    <div className="split">
-      <div className="intro-pane">
-        <div className="intro-body">
-          <section className="hero">
-            <div className="portrait">
-              <Image
-                src="/derrick.jpg"
-                alt="Derrick Schippert"
-                width={64}
-                height={64}
-                sizes="64px"
-                priority
-              />
-            </div>
-            <h1>
-              <Link className="name" href="/">
-                {site.name}
-              </Link>
-            </h1>
-            <AboutIntro />
-          </section>
+    <div className="page">
+      <Image className="avatar appear" src="/derrick.jpg" alt="Derrick Schippert" width={40} height={40} priority />
 
-          <section className="band" id="experience">
-            <h2 className="label">Experience</h2>
-            <ExperienceList items={experience} />
-          </section>
+      <section className="stack appear" aria-label="About" style={{ ["--d" as string]: "130ms" }}>
+        <p>Hello there,</p>
+        <p>I design and build software, mostly within enterprise systems.</p>
+        <p>
+          I have 15+ years experience. Most recently, I was at <Link href="/work/unified-ai-surfaces">Square</Link>,
+          working on AI, onboarding, and help across the seller journey. Before that, Google, Salesforce, GoDaddy and
+          UserTesting. Here’s my{" "}
+          <a href="/derrick-schippert-resume.pdf" download="Derrick-Schippert-Resume.pdf">
+            resume
+          </a>
+          .
+        </p>
+        <p>Currently on sabbatical, building fun side projects and spending time with family.</p>
+        <p>Off the clock: Detroit sports, photography, golf, and F1.</p>
+      </section>
+
+      <section id="work" className="section appear" aria-labelledby="work-h" style={{ ["--d" as string]: "200ms" }}>
+        <h2 id="work-h" className="label">
+          Square
+        </h2>
+        <div className="rows">
+          {caseStudies.map((study, index) => (
+            <Link key={study.slug} href={`/work/${study.slug}`} className="row row--index">
+              <span className="mono muted">{String(index + 1).padStart(2, "0")}</span>
+              <span>{study.title}</span>
+              <span className="mono muted">{study.tag}</span>
+            </Link>
+          ))}
         </div>
-        <footer className="pane-foot">
-          <p>
-            <a className="foot-link" href={`mailto:${site.email}`}>
-              Email
-            </a>
-            <span className="foot-sep" aria-hidden="true">
-              |
-            </span>
-            <ExternalLink href={site.linkedin} className="foot-link">
-              LinkedIn
+      </section>
+
+      <section className="section appear" aria-labelledby="side-h" style={{ ["--d" as string]: "270ms" }}>
+        <h2 id="side-h" className="label">
+          Side projects
+        </h2>
+        <div className="rows">
+          {sideProjects.map((project) => (
+            <ExternalLink key={project.href} href={project.href} className="row">
+              <span>
+                <span className="strong">{project.title}</span>
+                <span className="muted"> — {project.note}</span>
+              </span>
+              <span className="mono muted">{project.platform}</span>
             </ExternalLink>
-          </p>
-          <p>©2026</p>
-        </footer>
-      </div>
-      <div className="work-pane">
-        <div className="sheet">
-          <section className="band" id="work">
-            <h2 className="label">Recent work</h2>
-            <div className="slot" />
-            <WorkList items={professional} />
-            <WorkList heading="Side projects" items={sideProjects} />
-          </section>
-
-          <section className="band" id="thoughts">
-            <h2 className="label">Thoughts</h2>
-            <div className="slot">
-              <ThoughtLinks notes={notes} />
-            </div>
-          </section>
+          ))}
         </div>
-      </div>
+      </section>
+
+      <section id="thoughts" className="section appear" aria-labelledby="notes-h" style={{ ["--d" as string]: "340ms" }}>
+        <h2 id="notes-h" className="label">
+          Notes
+        </h2>
+        {notes.length === 0 ? (
+          <p className="empty">Nothing published yet. The note lands Monday at 7am PT.</p>
+        ) : (
+          <div className="rows">
+            {notes.map((thought) => (
+              <Link key={thought.date} href={`/thoughts/${thought.date}`} className="row">
+                <span>{headline(thought)}</span>
+                <time className="mono muted" dateTime={thought.date}>
+                  {formatThoughtDate(thought.date)}
+                </time>
+              </Link>
+            ))}
+          </div>
+        )}
+        {thoughts.length > 0 ? (
+          <Link href="/thoughts" className="mono more">
+            More
+          </Link>
+        ) : null}
+      </section>
+
+      <section className="stack appear" aria-labelledby="connect-h" style={{ ["--d" as string]: "410ms" }}>
+        <h2 id="connect-h" className="label">
+          Connect
+        </h2>
+        <p>
+          Hiring, building something hard, or just want to talk shop? Email{" "}
+          <a href={`mailto:${site.email}`}>{site.email}</a>. I’m also on{" "}
+          <ExternalLink href={site.linkedin} className="inline-link">
+            LinkedIn
+          </ExternalLink>
+          .
+        </p>
+      </section>
+
+      <SiteFooter>
+        <LocalTime />
+      </SiteFooter>
     </div>
   );
 }

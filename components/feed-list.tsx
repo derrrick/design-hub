@@ -12,11 +12,11 @@ function Meta({ post }: { post: FeedPost }) {
   if (metrics.length === 0 && !post.article) return null;
 
   return (
-    <p className="meta mono">
+    <p className="meta-line mono">
       {metrics.length > 0 ? <span>{metrics.join(" · ")}</span> : null}
       {metrics.length > 0 && post.article ? <span className="sep"> · </span> : null}
       {post.article ? (
-        <ExternalLink href={post.article.href} className="text-link">
+        <ExternalLink href={post.article.href} className="inline-link">
           {post.article.label}
         </ExternalLink>
       ) : null}
@@ -33,13 +33,13 @@ export function FeedList({ posts, label }: { posts: FeedPost[]; label: string })
         <li key={post.id}>
           <article className="post">
             <p className="who">
-              <ExternalLink href={post.postUrl} className="text-link who-name">
+              <ExternalLink href={post.postUrl} className="inline-link who-name">
                 {post.authorName}
                 <span className="sr-only"> on X</span>
               </ExternalLink>
               {post.authorHandle ? (
                 post.profileUrl ? (
-                  <ExternalLink href={post.profileUrl} className="handle mono text-link">
+                  <ExternalLink href={post.profileUrl} className="handle mono">
                     {post.authorHandle}
                   </ExternalLink>
                 ) : (

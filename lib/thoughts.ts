@@ -67,3 +67,21 @@ export function getLatestThought(now = new Date()): Thought | null {
 export function getThought(date: string, now = new Date()): Thought | null {
   return listThoughts(now).find((thought) => thought.date === date) ?? null;
 }
+
+function plain(spans: ThoughtSpan[]): string {
+  return spans.map((span) => span.text).join("").replace(/\s+/g, " ").trim();
+}
+
+// The first paragraph of every note is a one-line claim. It is the title.
+export function headline(thought: Thought): string {
+  return plain(thought.paragraphs[0] ?? []);
+}
+
+export function bodyParagraphs(thought: Thought): ThoughtSpan[][] {
+  return thought.paragraphs.slice(1);
+}
+
+export function readMinutes(thought: Thought): number {
+  const words = thought.paragraphs.reduce((sum, paragraph) => sum + plain(paragraph).split(" ").length, 0);
+  return Math.max(1, Math.round(words / 220));
+}

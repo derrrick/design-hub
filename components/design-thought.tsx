@@ -1,10 +1,10 @@
 import { ExternalLink } from "@/components/external-link";
-import type { Thought, ThoughtSpan } from "@/lib/thoughts";
+import { bodyParagraphs, type Thought, type ThoughtSpan } from "@/lib/thoughts";
 
 function Spans({ spans }: { spans: ThoughtSpan[] }) {
   return spans.map((span, spanIndex) =>
     span.href ? (
-      <ExternalLink key={spanIndex} href={span.href} className="text-link">
+      <ExternalLink key={spanIndex} href={span.href} className="inline-link">
         {span.text}
       </ExternalLink>
     ) : (
@@ -37,10 +37,18 @@ function asList(paragraph: ThoughtSpan[]): ThoughtSpan[][] | null {
   });
 }
 
+// A short last line with no links is the note's sign-off; it gets the strong color.
+function isClosing(paragraph: ThoughtSpan[], index: number, count: number): boolean {
+  if (index !== count - 1) return false;
+  if (paragraph.some((span) => span.href)) return false;
+  return paragraph.map((span) => span.text).join("").trim().length <= 80;
+}
+
 export function DesignThought({ thought }: { thought: Thought }) {
+  const paragraphs = bodyParagraphs(thought);
   return (
     <div className="prose">
-      {thought.paragraphs.map((paragraph, index) => {
+      {paragraphs.map((paragraph, index) => {
         const list = asList(paragraph);
         if (list) {
           return (
@@ -54,7 +62,7 @@ export function DesignThought({ thought }: { thought: Thought }) {
           );
         }
         return (
-          <p key={index}>
+          <p key={index} className={isClosing(paragraph, index, paragraphs.length) ? "closing" : undefined}>
             <Spans spans={paragraph} />
           </p>
         );

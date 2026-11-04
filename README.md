@@ -1,8 +1,10 @@
 # Design hub
 
-A quiet one-page reading site for Derrick Schippert. On a desktop the home page is a split: the intro and Experience stay on a dark left side, and Recent work and Thoughts scroll on a light right side. Screens 860px and under keep a single column and follow the light or dark theme. The page opens with a round profile photo, then the intro, Experience, Recent work, and Thoughts. Square lists its five case studies underneath as a short arrow list. Each list shows a batch and a More button for the next batch. Section names sit in a left label column. A dated note lives at `/thoughts/[date]`, and a day’s posts at `/resources/[date]`, each with a back link home.
+A quiet personal site for Derrick Schippert, built on one 540px reading column with product shots breaking wider (up to 1080px). Inter 14/22 with Geist Mono for dates and numbers; light and dark follow the system, and the toggle in the corner overrides it (saved in `localStorage` as `theme`).
 
-Thoughts on the home page are date plus the first line, linking to the full note. A new note is published Monday at 7:00am Pacific from the previous seven days of posts and saved links, plus a web search. Those posts and links are not listed on the page. The import time is not the post date.
+The home page is: intro, the five Square case studies, side projects, the four latest Notes, Connect, and a footer with local Pacific time. Case studies live at `/work/[slug]`; their copy, stats and images are data in `lib/work.ts`, with images in `public/images/work/` (a `dark` image swaps in with the theme). Notes live at `/thoughts/[date]`, with an archive at `/thoughts`. The first paragraph of each note is its title. The résumé is `public/derrick-schippert-resume.pdf`.
+
+Notes on the home page are the first line plus the date, linking to the full note. A new note is published Monday at 7:00am Pacific from the previous seven days of posts and saved links, plus a web search. Those posts and links are not listed on the page. The import time is not the post date.
 
 `/feed.xml` is still the RSS feed. It is not linked from the page. `/work`, `/resources`, `/today`, and `/archive` redirect to the matching section on the home page. `/resources`, `/today`, and `/archive` land on Thoughts.
 
