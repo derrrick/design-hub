@@ -39,14 +39,7 @@
         "href": "https://rnd.hingehealth.com/blog/how-100-of-our-designers-shipped-production-code-within-one-month"
       },
       {
-        "text": ", every designer shipped a pull request in a month, and each was reviewed like any other code. At "
-      },
-      {
-        "text": "Monzo",
-        "href": "https://monzo.com/blog/how-Monzo-Designers-are-shipping-safer-faster-product-improvements"
-      },
-      {
-        "text": ", review is mandatory and engineers still own deployment."
+        "text": ", every designer shipped a pull request in a month, and each was reviewed like any other code."
       }
     ],
     [
