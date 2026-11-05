@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { SiteFooter } from "@/components/back-link";
 import { ExternalLink } from "@/components/external-link";
@@ -14,7 +15,9 @@ const HOME_NOTES = 4;
 
 // Case studies stay live at /work/[slug]; they are not linked from here.
 export default function HomePage() {
-  const notes = listThoughts().slice(0, HOME_NOTES);
+  const thoughts = listThoughts();
+  const notes = thoughts.slice(0, HOME_NOTES);
+  const older = thoughts.length - notes.length;
 
   return (
     <div className="page">
@@ -68,6 +71,11 @@ export default function HomePage() {
         ) : (
           <NoteRows thoughts={notes} between dates={false} />
         )}
+        {older > 0 ? (
+          <Link href="/thoughts" className="more">
+            All thoughts ({thoughts.length})
+          </Link>
+        ) : null}
       </section>
 
       <section id="experience" className="section appear" aria-labelledby="exp-h" style={{ ["--d" as string]: "340ms" }}>
