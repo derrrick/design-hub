@@ -25,7 +25,7 @@ export default function HomePage() {
 
       <section className="stack appear" aria-label="About" style={{ ["--d" as string]: "130ms" }}>
         <p>
-          I’m a designer and software engineer in the Bay Area with 15+ years of experience building products. Most
+          I’m a designer and engineer in the Bay Area with 15+ years of experience building products. Most
           recently, at <ExternalLink href="https://squareup.com/us/en">Square</ExternalLink>, I designed across the
           seller journey: Square AI, sales, onboarding and support. Before that, I was at{" "}
           <ExternalLink href="https://about.google/">Google</ExternalLink>,{" "}
