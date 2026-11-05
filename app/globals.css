@@ -209,7 +209,7 @@ main:focus {
 
 /* Experience: two columns read top to bottom, like the résumé; one column on phones. */
 .roles {
-  margin-top: 8px;
+  margin: 8px 0 -20px;
   columns: 2 220px;
   column-gap: 24px;
 }
@@ -308,6 +308,14 @@ main:focus {
   border-radius: 6px;
   object-fit: cover;
   filter: grayscale(1);
+}
+
+/* Name under the avatar, 24px above the intro. */
+.intro-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: -32px;
 }
 
 /* Rows */

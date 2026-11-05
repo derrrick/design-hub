@@ -3,7 +3,7 @@
   "paragraphs": [
     [
       {
-        "text": "Synthetic users will tell you that you are right."
+        "text": "Agreement isn’t insight."
       }
     ],
     [
@@ -12,19 +12,16 @@
         "href": "https://www.nngroup.com/articles/synthetic-users-vs-human-respondents/"
       },
       {
-        "text": " asked 120 generated respondents a question 604 people had already answered. The conclusion matched, and the answers barely varied. That is not user research."
+        "text": " at NN/g ran a clean test: 120 generated respondents against a question 604 real people had already answered. The headline conclusion matched. But the answers barely varied, and the variance is the whole point of research."
       }
     ],
     [
-      {
-        "text": "On October 15, "
-      },
       {
         "text": "Figma",
         "href": "https://www.figma.com/blog/introducing-figma-specs/"
       },
       {
-        "text": " put Markdown on the canvas and called it Specs. Agent briefs already live in files that sit alone on a laptop, and a spec can hold the decision next to the frame. It still needs a person who will disagree."
+        "text": " shipped Specs on October 15, Markdown right on the canvas. I like it. Agent briefs mostly live in files on someone’s laptop, and a spec can keep the decision next to the frame it’s about. It still needs someone in the room willing to push back on it."
       }
     ],
     [
@@ -33,12 +30,12 @@
         "href": "https://www.smashingmagazine.com/2026/10/is-your-organization-messing-up-ai-adoption/"
       },
       {
-        "text": " calls the typical rollout a farce, the same mistake he described in 2014. Companies buy the technology and skip the people who have to use it."
+        "text": " calls most AI rollouts a farce, the same mistake he wrote about in 2014. Companies buy the technology and skip the people who have to use it. Twelve years later, it’s still true."
       }
     ],
     [
       {
-        "text": "Find the disagreement. Write that down."
+        "text": "The useful part of research is the disagreement. Go find it, and write it down."
       }
     ]
   ]

@@ -8,18 +8,11 @@
     ],
     [
       {
-        "text": "Maria Rosala",
+        "text": "Maria Rosala and Rachel Banawa",
         "href": "https://www.nngroup.com/articles/ai-in-ux-survey-26/"
       },
       {
-        "text": " and "
-      },
-      {
-        "text": "Rachel Banawa",
-        "href": "https://www.nngroup.com/articles/ai-in-ux-survey-26/"
-      },
-      {
-        "text": " surveyed 521 UX practitioners. Access is nearly universal and the tasks get faster, but the average feeling is 3.57 out of 5 and most written comments were negative. People use it most for desk work and least for work with users."
+        "text": " at NN/g surveyed 521 UX practitioners about AI. Almost everyone has access, and most tasks get faster. But the average sentiment was 3.57 out of 5, and most of the written comments were negative. The telling detail: people use it most for desk work and least for work with actual users."
       }
     ],
     [
@@ -28,7 +21,7 @@
         "href": "https://www.lukew.com/ff/2168/ask-lukew-instant-content-indexing"
       },
       {
-        "text": " pointed at the empty box. He set his site to answer before anyone asks, because the hard part of an AI product is knowing what it can do. A faster draft does not explain itself."
+        "text": " went after the empty box problem. His site now answers before anyone asks, because the hard part of an AI product is knowing what it can even do. A faster draft doesn’t solve that."
       }
     ],
     [
@@ -37,12 +30,12 @@
         "href": "https://www.seangoedecke.com/software-is-slow-because-of-bad-design-not-slow-languages/"
       },
       {
-        "text": " separates speed from the language. Most of the wait is the database, the disk, or another service. A faster language does not remove that wait."
+        "text": " made a point engineers already know and designers should borrow. Software is slow because of design, not the language. Most of the wait is the database, the disk, or another service. Our process works the same way: a faster tool doesn’t fix a slow decision."
       }
     ],
     [
       {
-        "text": "Spend the saved time with a user."
+        "text": "If AI buys you an afternoon back, spend it with a user."
       }
     ]
   ]

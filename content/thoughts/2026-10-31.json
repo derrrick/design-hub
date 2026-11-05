@@ -3,7 +3,7 @@
   "paragraphs": [
     [
       {
-        "text": "Design's job right now is refusal."
+        "text": "Design’s job right now is refusal."
       }
     ],
     [
@@ -12,17 +12,20 @@
         "href": "https://x.com/LukeW/status/2116554587964686777"
       },
       {
-        "text": " put it simply: there are only two ways to make money in software, bundling and unbundling, and AI is speed-running the bundling. Seven likes. The same week, "
+        "text": " had a good line this week: there are only two ways to make money in software, bundling and unbundling, and AI is speed-running the bundling. It got seven likes. The same week, "
       },
       {
         "text": "Vercel",
         "href": "https://x.com/vercel/status/2116191290216124567"
       },
       {
-        "text": " shipped a font and the likes piled up."
+        "text": " shipped a font and the likes piled up. That says a lot about what we pay attention to."
       }
     ],
     [
+      {
+        "text": "The more interesting shift was quieter. "
+      },
       {
         "text": "Canva",
         "href": "https://x.com/canva/status/2115885750013321704"
@@ -35,7 +38,7 @@
         "href": "https://x.com/figma/status/2115894206409723946"
       },
       {
-        "text": " quietly stopped selling the prompt as the product. Now it's a model that edits inside the file you already have. That's the right retreat."
+        "text": " both stopped pitching the prompt box as the product. Now it’s a model that edits inside the file you already have. That’s the right call, and honestly a bit of a relief."
       }
     ],
     [
@@ -44,7 +47,7 @@
         "href": "https://karrisaarinen.com/posts/someone-behind-the-software/"
       },
       {
-        "text": " named the risk. A feature can work and still make the product worse. Add enough of them and you can't feel anyone behind the software."
+        "text": " wrote the piece I keep coming back to. A feature can work and still make the product worse. Stack up enough of them and you stop feeling anyone behind the software. Anyone who’s worked on a big platform has watched that happen."
       }
     ],
     [
@@ -53,14 +56,14 @@
         "href": "https://x.com/soleio/status/2116252889601695949"
       },
       {
-        "text": " says the future belongs to designers who build. I'd go further: it belongs to designers who delete. "
+        "text": " says the future belongs to designers who build. I’d add: designers who delete. "
       },
       {
         "text": "Emil Kowalski",
         "href": "https://x.com/emilkowalski/status/2116583281332503038"
       },
       {
-        "text": " has the whole method. Remove the animations. Improve what's left. Check that it's fast."
+        "text": " sums up the method in three steps: take the animations out, improve what’s left, make sure it’s fast."
       }
     ],
     [
@@ -72,12 +75,12 @@
         "href": "https://www.lukew.com/ff/entry.asp?2164"
       },
       {
-        "text": ". Someone with taste still has to write them, and know when to throw them out."
+        "text": ". Someone with taste still has to write them, and know when to break them."
       }
     ],
     [
       {
-        "text": "Build less. Mean more."
+        "text": "Less, but better. Rams said it first, and it still holds."
       }
     ]
   ]

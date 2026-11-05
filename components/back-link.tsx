@@ -11,10 +11,10 @@ export function BackLink({ href = "/" }: { href?: string }) {
   );
 }
 
-export function SiteFooter({ children }: { children?: React.ReactNode }) {
+export function SiteFooter({ children, name = true }: { children?: React.ReactNode; name?: boolean }) {
   return (
     <footer className="footer">
-      <span className="mono">©2026 Derrick Schippert</span>
+      <span className="mono">{name ? "©2026 Derrick Schippert" : "©2026"}</span>
       {children}
     </footer>
   );
