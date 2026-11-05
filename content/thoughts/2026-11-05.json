@@ -1,0 +1,45 @@
+{
+  "date": "2026-11-05",
+  "paragraphs": [
+    [
+      {
+        "text": "Designers should code, and engineers should design."
+      }
+    ],
+    [
+      {
+        "text": "For years, titles decided who was allowed to touch what. Designers designed, engineers coded, and everything in between was a handoff: a rebuild, a round of screenshots, a backlog of small fixes nobody had time for. That handoff is where products lose their quality."
+      }
+    ],
+    [
+      {
+        "text": "AI took away the reason to keep the roles apart. A designer with an agent can code. An engineer with an agent can design."
+      }
+    ],
+    [
+      {
+        "text": "The best teams already work like this. The canvas is still where an idea starts. It is just not where the work stops anymore."
+      }
+    ],
+    [
+      {
+        "text": "What does not change is who owns quality. Design owns how the product looks and feels. Engineering owns the code that ships."
+      }
+    ],
+    [
+      {
+        "text": "So an engineer's design is an idea, and a designer makes it production ready. A designer's pull request is a start, and an engineer polishes it before it merges."
+      }
+    ],
+    [
+      {
+        "text": "That is not a handoff. Both people work on the same thing, so nothing gets rebuilt and nothing gets lost."
+      }
+    ],
+    [
+      {
+        "text": "Anyone can start anything now. The owner still finishes it."
+      }
+    ]
+  ]
+}
