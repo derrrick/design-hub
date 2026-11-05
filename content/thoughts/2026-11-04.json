@@ -3,24 +3,24 @@
   "paragraphs": [
     [
       {
-        "text": "Designers should code, and engineers should design."
+        "text": "The wall between design and code was always a staffing decision."
       }
     ],
     [
       {
-        "text": "For years, titles decided who could touch what. Everything in between was a handoff: a rebuild, a round of screenshots, a backlog of small fixes nobody had time for. That handoff is where products lose their quality."
+        "text": "Products rarely broke in the design file or in the repo. They broke in the gap between them, where a spec became a ticket and a detail became a nice-to-have."
       }
     ],
     [
       {
-        "text": "AI removed the reason to keep the roles apart. In "
+        "text": "That gap is closing from both sides. "
       },
       {
         "text": "Figma's 2026 AI report",
         "href": "https://www.figma.com/blog/2026-ai-report/"
       },
       {
-        "text": ", designers working in development doubled to 41% in a year, and developers doing design rose to 60%. "
+        "text": " found designers working in development doubled to 41% in a year, while developers doing design climbed to 60%. "
       },
       {
         "text": "Designer Fund",
@@ -32,29 +32,29 @@
     ],
     [
       {
-        "text": "Ownership did not move with it. At "
+        "text": "Crossing the line is not the same as owning what sits on the other side. At "
       },
       {
         "text": "Hinge Health",
         "href": "https://rnd.hingehealth.com/blog/how-100-of-our-designers-shipped-production-code-within-one-month"
       },
       {
-        "text": ", every designer shipped a pull request in a month, and each was reviewed like any other code."
+        "text": ", every designer shipped a pull request within a month, and engineers reviewed each one like any other code."
       }
     ],
     [
       {
-        "text": "So an engineer's design is an idea until a designer makes it production ready. A designer's pull request is a start until an engineer polishes it."
+        "text": "That is the model. Anyone starts. The expert signs off."
       }
     ],
     [
       {
-        "text": "That is not a handoff. Both people work on the same thing, so nothing gets rebuilt."
+        "text": "An engineer's rough screen gets a designer's finish. A designer's pull request gets an engineer's review. Nobody rebuilds a copy of anyone's work."
       }
     ],
     [
       {
-        "text": "Anyone can start anything now. The owner still finishes it."
+        "text": "Start anywhere. Ship through the owner."
       }
     ]
   ]
