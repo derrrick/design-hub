@@ -1,3 +1,6 @@
+import { existsSync } from "node:fs";
+import path from "node:path";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,6 +15,14 @@ import { experience, sideProjects } from "@/lib/work";
 export const revalidate = 3600;
 
 const HOME_NOTES = 4;
+
+// A logo shows only once its file exists in public/logos.
+function logoFor(slug: string): string | null {
+  for (const ext of ["svg", "png"]) {
+    if (existsSync(path.join(process.cwd(), "public", "logos", `${slug}.${ext}`))) return `/logos/${slug}.${ext}`;
+  }
+  return null;
+}
 
 // Case studies stay live at /work/[slug]; they are not linked from here.
 export default function HomePage() {
@@ -28,9 +39,9 @@ export default function HomePage() {
 
       <section className="stack appear" aria-label="About" style={{ ["--d" as string]: "130ms" }}>
         <p>
-          I’m a designer and engineer in the Bay Area with 15+ years of experience building products. Most
-          recently, at <ExternalLink href="https://squareup.com/us/en">Square</ExternalLink>, I designed across the
-          seller journey: Square AI, sales, onboarding and support. Before that, I was at{" "}
+          I’m a product designer and engineer in the Bay Area. Most recently, I spent seven years with{" "}
+          <ExternalLink href="https://squareup.com/us/en">Square</ExternalLink> designing AI products, sales and
+          onboarding flows, and self-serve help. Before that,{" "}
           <ExternalLink href="https://about.google/">Google</ExternalLink>,{" "}
           <ExternalLink href="https://www.salesforce.com/">Salesforce</ExternalLink>,{" "}
           <ExternalLink href="https://www.godaddy.com/">GoDaddy</ExternalLink> and{" "}
@@ -83,14 +94,20 @@ export default function HomePage() {
           Experience
         </h2>
         <ul className="roles">
-          {experience.map((role) => (
-            <li key={role.company}>
-              <span>
-                <span className="role-company">{role.company}</span> <span className="mono muted">{role.years}</span>
-              </span>
-              <span className="muted">{role.title}</span>
-            </li>
-          ))}
+          {experience.map((role) => {
+            const logo = logoFor(role.logo);
+            return (
+              <li key={role.company} className={logo ? "has-logo" : undefined}>
+                <span className="role-head">
+                  {logo ? <img className="role-logo" src={logo} alt="" width={16} height={16} /> : null}
+                  <span>
+                    <span className="role-company">{role.company}</span> <span className="mono muted">{role.years}</span>
+                  </span>
+                </span>
+                <span className="muted role-title">{role.title}</span>
+              </li>
+            );
+          })}
         </ul>
       </section>
 

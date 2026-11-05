@@ -221,6 +221,24 @@ main:focus {
   padding-bottom: 20px;
 }
 
+.role-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.role-logo {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  object-fit: contain;
+  filter: grayscale(1);
+}
+
+.has-logo .role-title {
+  padding-left: 24px;
+}
+
 .role-company {
   color: var(--strong);
   font-weight: 500;

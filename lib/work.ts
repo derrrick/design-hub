@@ -531,16 +531,17 @@ export const sideProjects: SideProject[] = [
   { title: "HPW", href: "https://healthpricewatch.com/", note: "price transparency compliance", platform: "SaaS, Web" },
 ];
 
-export type Role = { company: string; title: string; years: string };
+// Drop an official mark at public/logos/<logo>.svg (or .png) and it appears next to the company.
+export type Role = { company: string; title: string; years: string; logo: string };
 
 // Order matches the résumé: read down the left column, then the right.
 export const experience: Role[] = [
-  { company: "Block (Square)", title: "Staff Product Designer", years: "2019–2026" },
-  { company: "Dockyard", title: "Sr. Product Designer", years: "2018–2019" },
-  { company: "Google", title: "UX Designer", years: "2018" },
-  { company: "UserTesting", title: "Sr. Product Designer", years: "2017" },
-  { company: "GoDaddy", title: "Sr. Product Designer", years: "2015–2017" },
-  { company: "RetailMeNot", title: "Product Designer", years: "2014–2015" },
-  { company: "Salesforce", title: "UI & UX Designer", years: "2013–2014" },
-  { company: "LivingSocial", title: "UX Designer", years: "2011–2013" },
+  { company: "Block (Square)", title: "Staff Product Designer", years: "2019–2026", logo: "square" },
+  { company: "Dockyard", title: "Sr. Product Designer", years: "2018–2019", logo: "dockyard" },
+  { company: "Google", title: "UX Designer", years: "2018", logo: "google" },
+  { company: "UserTesting", title: "Sr. Product Designer", years: "2017", logo: "usertesting" },
+  { company: "GoDaddy", title: "Sr. Product Designer", years: "2015–2017", logo: "godaddy" },
+  { company: "RetailMeNot", title: "Product Designer", years: "2014–2015", logo: "retailmenot" },
+  { company: "Salesforce", title: "UI & UX Designer", years: "2013–2014", logo: "salesforce" },
+  { company: "LivingSocial", title: "UX Designer", years: "2011–2013", logo: "livingsocial" },
 ];
