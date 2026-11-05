@@ -62,4 +62,4 @@ npm start
 
 ## Company logos
 
-Drop an official mark at `public/logos/<slug>.svg` (or `.png`) and it shows next to that company in Experience, 16px and greyscale. Slugs live in `lib/work.ts` (`square`, `dockyard`, `google`, `usertesting`, `godaddy`, `retailmenot`, `salesforce`, `livingsocial`). Missing files render nothing.
+Drop an official mark at `public/logos/<slug>.svg` (or `.png`) and it shows next to that company in Experience, 16px and greyscale. Slugs live in `lib/work.ts` (`square`, `google`, `usertesting`, `godaddy`, `retailmenot`, `salesforce`). Missing files render nothing.

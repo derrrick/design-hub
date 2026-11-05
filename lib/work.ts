@@ -537,11 +537,9 @@ export type Role = { company: string; title: string; years: string; logo: string
 // Order matches the résumé: read down the left column, then the right.
 export const experience: Role[] = [
   { company: "Block (Square)", title: "Staff Product Designer", years: "2019–2026", logo: "square" },
-  { company: "Dockyard", title: "Sr. Product Designer", years: "2018–2019", logo: "dockyard" },
   { company: "Google", title: "UX Designer", years: "2018", logo: "google" },
   { company: "UserTesting", title: "Sr. Product Designer", years: "2017", logo: "usertesting" },
   { company: "GoDaddy", title: "Sr. Product Designer", years: "2015–2017", logo: "godaddy" },
   { company: "RetailMeNot", title: "Product Designer", years: "2014–2015", logo: "retailmenot" },
   { company: "Salesforce", title: "UI & UX Designer", years: "2013–2014", logo: "salesforce" },
-  { company: "LivingSocial", title: "UX Designer", years: "2011–2013", logo: "livingsocial" },
 ];
