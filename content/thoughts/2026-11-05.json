@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-05",
+  "paragraphs": [
+    [
+      {
+        "text": "Agents make drafts, and designers make decisions."
+      }
+    ],
+    [
+      {
+        "text": "The first screen used to be the hard part. Now it takes a prompt and a minute, and it arrives looking finished."
+      }
+    ],
+    [
+      {
+        "text": "The teams with the highest bar don’t stop there. At "
+      },
+      {
+        "text": "Linear",
+        "href": "https://designerfund.substack.com/p/ai-design-linear"
+      },
+      {
+        "text": ", designer Isha Kumar routes only 20–30% of new design work through AI and keeps the rest hands-on. "
+      },
+      {
+        "text": "Figma’s 2026 AI report",
+        "href": "https://www.figma.com/blog/2026-ai-report/"
+      },
+      {
+        "text": " found nearly six in ten people say design matters more since AI arrived, not less."
+      }
+    ],
+    [
+      {
+        "text": "So give agents the setup, the repetition, the first pass. Then let a designer grab the work and shape it directly, instead of typing a request to nudge the padding and waiting."
+      }
+    ],
+    [
+      {
+        "text": "A tool that only works through prompts has automated the wrong half."
+      }
+    ],
+    [
+      {
+        "text": "Judge the ending, not the draft."
+      }
+    ]
+  ]
+}
