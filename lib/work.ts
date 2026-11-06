@@ -525,9 +525,9 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
 
 export const sideProjects: SideProject[] = [
   { title: "Punch", href: "https://thepunch.studio/", note: "independent type foundries, hand-picked", platform: "Web" },
-  { title: "Artifact", href: "https://www.fartifact.space/explore?url=https%3A%2F%2Fcounter-print.co.uk&name=Counter-Print&bucket=independent_publishing&filter=independent_publishing", note: "sites that prove the web is still exciting", platform: "Web" },
-  { title: "Cutline", href: "https://joincutline.com", note: "honest, human photo critique community", platform: "iOS, Web" },
   { title: "Vector", href: "https://www.vectordrop.app/", note: "drop a raster, get a clean SVG", platform: "macOS" },
+  { title: "Cutline", href: "https://joincutline.com", note: "honest, human photo critique community", platform: "iOS, Web" },
+  { title: "Artifact", href: "https://www.fartifact.space/explore?url=https%3A%2F%2Fcounter-print.co.uk&name=Counter-Print&bucket=independent_publishing&filter=independent_publishing", note: "sites that prove the web is still exciting", platform: "Web" },
   { title: "HPW", href: "https://healthpricewatch.com/", note: "price transparency compliance", platform: "SaaS, Web" },
 ];
 
