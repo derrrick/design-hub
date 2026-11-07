@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-19",
+  "paragraphs": [
+    [
+      {
+        "text": "Craft is turning into a linter."
+      }
+    ],
+    [
+      {
+        "text": "Emil Kowalski",
+        "href": "https://x.com/emilkowalski/status/2119031260404183158"
+      },
+      {
+        "text": " said it plainly this week: he hasn’t seen a project with obvious design mistakes in a while. AI raised the floor, and a decent-looking design is now just the baseline."
+      }
+    ],
+    [
+      {
+        "text": "The rules that got us here are being written down. Emil shipped "
+      },
+      {
+        "text": "a skill",
+        "href": "https://x.com/emilkowalski/status/2117996960028450836"
+      },
+      {
+        "text": " that handles stagger and timing when several things animate together. "
+      },
+      {
+        "text": "Eli Rousso’s Rams",
+        "href": "https://x.com/elirousso/status/2118720766753538395"
+      },
+      {
+        "text": " just passed 20,000 design reviews, and most came from agents checking UI while they write it. The rules are small and geometric: inner radius equals outer radius minus padding, and "
+      },
+      {
+        "text": "keep your :has() selectors tight",
+        "href": "https://x.com/jh3yy/status/2118769965260210494"
+      },
+      {
+        "text": "."
+      }
+    ],
+    [
+      {
+        "text": "I think that’s mostly great. Müller-Brockmann wrote his grid down for the same reason. But "
+      },
+      {
+        "text": "Luke Wroblewski",
+        "href": "https://x.com/LukeW/status/2118421965795176886"
+      },
+      {
+        "text": " spotted the catch: left alone, models add documentation instead of simplifying. A linter can tell you a corner is wrong. Knowing the screen shouldn’t exist takes context, and context is the next thing agents get."
+      }
+    ],
+    [
+      {
+        "text": "The corners are solved. The question now is who supplies the context."
+      }
+    ]
+  ]
+}

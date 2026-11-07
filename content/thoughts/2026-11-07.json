@@ -3,59 +3,41 @@
   "paragraphs": [
     [
       {
-        "text": "Craft is turning into a linter."
+        "text": "Craft is getting cheaper every quarter."
       }
     ],
     [
       {
-        "text": "Emil Kowalski",
-        "href": "https://x.com/emilkowalski/status/2119031260404183158"
-      },
-      {
-        "text": " said it plainly this week: he hasn’t seen a project with obvious design mistakes in a while. AI raised the floor, and a decent-looking design is now just the baseline."
+        "text": "For most of my career, seniority showed up in the details: the tighter grid, the better easing curve, the screen you knew to cut. That was the job, and it was worth paying for."
       }
     ],
     [
       {
-        "text": "The rules that got us here are being written down. Emil shipped "
+        "text": "It’s being automated from both ends. Agents "
       },
       {
-        "text": "a skill",
-        "href": "https://x.com/emilkowalski/status/2117996960028450836"
-      },
-      {
-        "text": " that handles stagger and timing when several things animate together. "
-      },
-      {
-        "text": "Eli Rousso’s Rams",
+        "text": "check the corners",
         "href": "https://x.com/elirousso/status/2118720766753538395"
       },
       {
-        "text": " just passed 20,000 design reviews, and most came from agents checking UI while they write it. The rules are small and geometric: inner radius equals outer radius minus padding, and "
+        "text": " while they write UI, and the floor has risen so far that "
       },
       {
-        "text": "keep your :has() selectors tight",
-        "href": "https://x.com/jh3yy/status/2118769965260210494"
+        "text": "a decent-looking design is now the baseline",
+        "href": "https://x.com/emilkowalski/status/2119031260404183158"
       },
       {
-        "text": "."
+        "text": ". Give a model the same context you have and it can make the edit too. The better that context gets, the less a designer’s eye adds on its own."
       }
     ],
     [
       {
-        "text": "I think that’s mostly great. Müller-Brockmann wrote his grid down for the same reason. But "
-      },
-      {
-        "text": "Luke Wroblewski",
-        "href": "https://x.com/LukeW/status/2118421965795176886"
-      },
-      {
-        "text": " spotted the catch: left alone, models add documentation instead of simplifying. A linter can tell you a corner is wrong. It can’t tell you the screen shouldn’t exist."
+        "text": "What stays expensive is the work around the work: deciding which problem is worth solving, framing it so anyone, or anything, can start, and owning what happens after it ships. That isn’t a softer version of design. It’s the part we used to hand to product managers."
       }
     ],
     [
       {
-        "text": "Let the machines check the corners. Spend your time deciding what to cut."
+        "text": "Senior design is moving upstream. Follow it, or get priced like a tool."
       }
     ]
   ]
