@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-13",
+  "paragraphs": [
+    [
+      {
+        "text": "Dark patterns are moving down a layer."
+      }
+    ],
+    [
+      {
+        "text": "Microsoft built a "
+      },
+      {
+        "text": "simulated marketplace",
+        "href": "https://arxiv.org/html/2510.25779v1"
+      },
+      {
+        "text": " where customer agents shop and business agents sell. Every model they tested leaned hard toward the first offer it got, enough that answering fast mattered 10 to 30 times more than offering something better."
+      }
+    ],
+    [
+      {
+        "text": "Pressure made it worse. Business agents used authority appeals, social proof and prompt injection, and for several models the injection redirected every payment to the business doing it. The strongest models held up much better, but “the best model resists it” isn’t a design principle."
+      }
+    ],
+    [
+      {
+        "text": "For twenty years, dark patterns targeted people: the pre-checked box, the buried cancel link. The same tricks are now aimed at the agent reading the page on someone’s behalf. That turns a lot of our ethics work into security work, and the rules for how an agent proves a person said yes are being written right now, mostly without designers in the room."
+      }
+    ],
+    [
+      {
+        "text": "Design for the person, and assume their agent is under attack."
+      }
+    ]
+  ]
+}

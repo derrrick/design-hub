@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-11",
+  "paragraphs": [
+    [
+      {
+        "text": "Approval turns into rubber-stamping."
+      }
+    ],
+    [
+      {
+        "text": "Most agent pitches end with a person approving the result. Book the table? Yes. Send the refund? Yes. It sounds like control."
+      }
+    ],
+    [
+      {
+        "text": "In 1983, Lisanne Bainbridge wrote "
+      },
+      {
+        "text": "“Ironies of Automation”",
+        "href": "https://carlhendrick.substack.com/p/ai-brain-fry-workslop-and-the-ironies"
+      },
+      {
+        "text": " about power plants and cockpits. Automation leaves people the hardest leftover tasks, wears down the skills those tasks need, and then asks them to monitor, which is the thing we’re worst at. If the agent is almost always right, your approvals drift toward always and stop meaning anything."
+      }
+    ],
+    [
+      {
+        "text": "The data is catching up. "
+      },
+      {
+        "text": "BCG",
+        "href": "https://www.bcg.com/news/5march2026-when-using-ai-leads-brain-fry"
+      },
+      {
+        "text": " surveyed nearly 1,500 workers and found close oversight of AI was the most mentally taxing form of AI work they described. And when Google shows an AI summary, people click a link inside it in "
+      },
+      {
+        "text": "about 1% of visits",
+        "href": "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/"
+      },
+      {
+        "text": ". We don’t check the summary. We trust it."
+      }
+    ],
+    [
+      {
+        "text": "So the design problem isn’t the approve button. It’s deciding what deserves a person at all, and making the rare moment that does worth their attention."
+      }
+    ],
+    [
+      {
+        "text": "A system that never asks you to look is training you not to."
+      }
+    ]
+  ]
+}

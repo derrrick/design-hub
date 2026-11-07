@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-17",
+  "paragraphs": [
+    [
+      {
+        "text": "The interface becomes a return value."
+      }
+    ],
+    [
+      {
+        "text": "Guillermo Rauch",
+        "href": "https://x.com/rauchg/status/2118856239719608353"
+      },
+      {
+        "text": " thinks agents that render real UI inside Slack and Teams will become the main way we work with them. He’s right about the direction."
+      }
+    ],
+    [
+      {
+        "text": "The plumbing already exists. In January, "
+      },
+      {
+        "text": "MCP Apps",
+        "href": "https://blog.modelcontextprotocol.io/tags/apps/"
+      },
+      {
+        "text": " became the protocol’s first official extension: a tool can now return an interactive interface that renders inside the conversation. It’s crude, but it changes what an app is. You stop opening a destination. The agent works out of sight and hands you a surface when you need to decide something."
+      }
+    ],
+    [
+      {
+        "text": "Most of the screenless hardware bets missed the asymmetry. Input is going post-GUI. Output isn’t. Voice is a great way to say what you want and a poor way to judge a dense result. Your eyes are still the widest channel you have."
+      }
+    ],
+    [
+      {
+        "text": "The question isn’t what the screen looks like anymore. It’s when you need one, and the least it can show."
+      }
+    ]
+  ]
+}
