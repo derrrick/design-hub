@@ -72,7 +72,7 @@ function plain(spans: ThoughtSpan[]): string {
   return spans.map((span) => span.text).join("").replace(/\s+/g, " ").trim();
 }
 
-// The first paragraph of every note is a one-line claim. It is the title.
+// The first paragraph of every note is a one-line claim; it doubles as the title.
 export function headline(thought: Thought): string {
   return plain(thought.paragraphs[0] ?? []);
 }
