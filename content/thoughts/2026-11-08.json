@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-08",
+  "paragraphs": [
+    [
+      {
+        "text": "The last job left for people is taking the blame."
+      }
+    ],
+    [
+      {
+        "text": "Every argument about agents replacing us hits the same wall, and it isn’t capability. It’s culpability. A model can’t be fired, sued or put under oath. Regulators, courts and boards need a name on the decision."
+      }
+    ],
+    [
+      {
+        "text": "The law already says so. The EU AI Act requires high-risk systems to be "
+      },
+      {
+        "text": "“effectively overseen by natural persons,”",
+        "href": "https://www.springlex.eu/en/packages/ai-act/ai-act-regulation/article-14/"
+      },
+      {
+        "text": " with interface tools to do it: a way to override the output, and a literal “stop” button. This summer the EU "
+      },
+      {
+        "text": "pushed those rules",
+        "href": "https://www.mondaq.com/uk/new-technology/1825722/eu-digital-omnibus-on-ai-enters-into-force"
+      },
+      {
+        "text": " back to December 2027. The deadline moved. The person didn’t."
+      }
+    ],
+    [
+      {
+        "text": "So “human in the loop” is quietly changing meaning. Not the person who does the work, or even checks it, but the person whose signature makes it legal. As agents improve, the approval becomes a formality, and the formality becomes the job."
+      }
+    ],
+    [
+      {
+        "text": "Being accountable for work you didn’t do is a design problem. Almost nobody is designing it."
+      }
+    ]
+  ]
+}
