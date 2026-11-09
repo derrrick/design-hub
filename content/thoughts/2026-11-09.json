@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-09",
+  "paragraphs": [
+    [
+      {
+        "text": "Building got cheap, but watching people didn’t."
+      }
+    ],
+    [
+      {
+        "text": "Agents can make almost anything now. That moves the bottleneck from making to knowing what’s worth making, and you only learn that from real use."
+      }
+    ],
+    [
+      {
+        "text": "Guillermo Rauch",
+        "href": "https://x.com/rauchg/status/2118777039226642547"
+      },
+      {
+        "text": " wants agents reading production traces and improving from there. "
+      },
+      {
+        "text": "Karri Saarinen",
+        "href": "https://x.com/karrisaarinen/status/2119109748129947695"
+      },
+      {
+        "text": " would rather look out the window and see how people use the product, with metrics as a secondary guide."
+      }
+    ],
+    [
+      {
+        "text": "Both want the same input, and I side with Karri on the order. Traces show what people did. Watching shows what they meant."
+      }
+    ],
+    [
+      {
+        "text": "An agent can clear every issue in a trace and still polish the wrong thing. Rauch says it himself: you can burn tokens on optimizations no one will care about."
+      }
+    ],
+    [
+      {
+        "text": "So the designer’s week changes. Less time in the file. More time next to someone using the thing."
+      }
+    ],
+    [
+      {
+        "text": "Ship faster. Watch longer."
+      }
+    ]
+  ]
+}
